@@ -11,23 +11,158 @@
 	}
 	
 ?>
+
 <html>
 <body>
 
+<?php 
+
+	$sessionUser = $_SESSION['userType'];
+
+	echo "Logged in as: $sessionUser"; 
+	
+	$date = $_SESSION["today"];
+	echo "<br>";
+	echo "Today's date: $date";
+	
+?> 
+
+<br>
+<br>
+
 <?php
 
-if(isset($_POST["complex_select_menu"]) && isset($_POST["movie_select_menu"]) )
+if(isset($_POST["complex_select_menu"]) 
+	&& isset($_POST["movie_select_menu"])
+    && isset($_POST["day_select_menu"]))
 {
 	$complex = $_POST["complex_select_menu"];
 	$movie = $_POST["movie_select_menu"];
-	echo "<br>complex set: $complex";
-	echo "<br>movie set: $movie<br>";
-	echo $_SESSION['test'];
+	$daysPlus = $_POST["day_select_menu"];
+	
+	if($daysPlus != "all")
+	{
+		$todaysDate = explode("/", $_SESSION["today"]);
+		
+		$dayToCheck = date("m/d/Y", mktime(0,0,0, $todaysDate[0], $todaysDate[1] + $daysPlus, $todaysDate[2]));
+		
+		echo "<br>day selected: $dayToCheck";
+	}
+	
+	else
+	{
+		echo "<br>day selected: $daysPlus";
+	}
+	
+	echo "<br>complex selected: $complex";
+	echo "<br>movie selected: $movie";
+	
+	
+	$listingsQueryBase = "select C.Name, M.Title, S.ShowDate, S.ShowTime
+									from MovieShowing S, Cinema C, Movie M ";
+	
+	// NOTE: STOP BEING A SHITLORD AND DYNAMICALLY BUILD THIS QUERY 
+	
+	
+	// specific complex, all days, all movies
+	$listingsQuery = $listingsQueryBase +
+		"where C.Name = '{$complex}'";
+		
+	$listingsQuery += 
+		"and C.ID = S.CinemaID
+		and S.MovieID = M.ID";
+		
+	
+	/* EXAMPLES
+	
+	// all complexes, all days, all movies
+	
+	select C.Name, M.Title, S.ShowDate, S.ShowTime
+		from MovieShowing S, Cinema C, Movie M 
+		where 
+		and C.ID = S.CinemaID
+		and S.MovieId = M.ID
+	
+	// specific complex, all days, all movies
+	
+	select C.Name, M.Title, S.ShowDate, S.ShowTime
+		from MovieShowing S, Cinema C, Movie M 
+		where C.Name = '{$complex}'
+		and C.ID = S.CinemaID
+		and S.MovieId = M.ID
+		
+		
+	// specific complex, specific day, all movies
+	
+	select C.Name, M.Title, S.ShowDate, S.ShowTime
+		from MovieShowing S, Cinema C, Movie M 
+		where C.Name = '{$complex}'
+		and S.ShowDate = '{$dayToCheck}'
+		and C.ID = S.CinemaID
+		and S.MovieId = M.ID
+	
+	
+	// specific complex, specific day, specific movie
+	
+	select C.Name, M.Title, S.ShowDate, S.ShowTime
+		from MovieShowing S, Cinema C, Movie M 
+		where C.Name = '{$complex}'
+		and S.ShowDate = '{$dayToCheck}'
+		and M.Name = '{$movie}'
+		and C.ID = S.CinemaID
+		and S.MovieId = M.ID
+	
+	*/
+		
+	
+		
+	$listingsResult = mysql_query($listingsQuery);// or die(mysql_error());
+	
+	if($listingsResult)
+	{
+		if(mysql_num_rows($listingsResult))
+		{
+			echo "<table border = \"1\" cellpadding = \"10\" align = \"center\">";
+			echo "<tr> 
+					  <th>Cinema Name</th> 
+					  <th>Movie Name</th> 
+					  <th>Show Date</th>
+					  <th>Show Time</th
+					  </tr>";
+					  
+			while($row = mysql_fetch_array($listingsResult))
+			{
+				echo "<tr>
+						  <td>" . $row['Name']. "</td>
+						  <td>" . $row['Title']. "</td>
+						  <td>" . $row['ShowDate']. "</td>
+						  <td>" . $row['ShowTime']. "</td>
+						  </tr>";
+			}
+		}
+		
+		else
+		{
+			echo "<br>No listings for that selection!";
+		}
+		
+	}
+	
+	else
+	{
+		echo "<br>Null result!";
+	}
+	
+	
+	
+	
+	
 }
 
 else
 {
-	echo "<br>Got here illegally!";
+	echo '<br>Got here illegally!';
+	echo '<br><a href ="index.php">Go to Index</a>';
 }
 
 

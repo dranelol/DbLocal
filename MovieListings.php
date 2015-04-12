@@ -101,13 +101,14 @@ Select a Movie
 
 Select a Day
 <select name="day_select_menu">
-	<option value="today">Today</option>
-	<option value="today+1">Today + 1</option>
-	<option value="today+2">Today + 2</option>
-	<option value="today+3">Today + 3</option>
-	<option value="today+4">Today + 4</option>
-	<option value="today+5">Today + 5</option>
-	<option value="today+6">Today + 6</option>
+	<option value="0">Today</option>
+	<option value="1">Today + 1</option>
+	<option value="2">Today + 2</option>
+	<option value="3">Today + 3</option>
+	<option value="4">Today + 4</option>
+	<option value="5">Today + 5</option>
+	<option value="6">Today + 6</option>
+	<option value="all">All</option>
 </select>
 <br>
 <br>
