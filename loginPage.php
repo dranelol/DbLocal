@@ -10,8 +10,10 @@ Login Page
 </head>
 
 <h3>Login</h3>
-<br>
+
 <body>
+
+
 <br>
 Don't lie pls!
 <form action = "index.php" method = "post">

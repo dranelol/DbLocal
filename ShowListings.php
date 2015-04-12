@@ -1,19 +1,15 @@
 <?php
 	include "login.php";
 
-	if(isset($_POST["userType"]))
-	{
-		$_SESSION['userType'] = $_POST["userType"];
-	}
-
-	else
-	{
+	if(isset($_SESSION["userType"]) == false)
+	{	
 		echo "Not logged in!";
 		echo '<br><br>';
-		echo '<a href ="loginPage.php">Go Log In</a>';
+		echo '<a href ="LoginPage.php">Go Log In</a>';
 		
 		die();
 	}
+	
 ?>
 <html>
 <body>
