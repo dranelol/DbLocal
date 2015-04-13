@@ -21,6 +21,7 @@ Don't lie pls!
 <select name="userType">
 	<option value="user">User</option>
 	<option value="admin">Admin</option>
+	<option value="employee">Employee</option>
 </select>
 <br><br>
 <input type = "submit" value = "Log In">

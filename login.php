@@ -1,4 +1,5 @@
 <?php
+
 // Display errors to browser
 error_reporting(E_ALL ^ E_DEPRECATED);
 
@@ -16,6 +17,4 @@ $connect = mysql_connect($host,$user,$password)
 @mysql_select_db($database) or die("Unable to select database");
 session_start();
 
-
-	
 ?>
