@@ -58,7 +58,7 @@ if(isset($_POST["complex_select_menu"])
 	echo "<br>movie selected: $movie";
 	
 	// NOTE: STOP BEING A SHITLORD AND DYNAMICALLY BUILD THIS QUERY 
-	$listingsQueryBase = "select C.Name, M.Title, S.ShowDate, S.ShowTime
+	$listingsQueryBase = "select S.ID, C.Name, M.Title, S.ShowDate, S.ShowTime
 									from MovieShowing S, Cinema C, Movie M 
 									where C.ID = S.CinemaID
 									and S.MovieId = M.ID";
@@ -152,6 +152,12 @@ if(isset($_POST["complex_select_menu"])
 						  <td>" . $row['Title']. "</td>
 						  <td>" . $row['ShowDate']. "</td>
 						  <td>" . $row['ShowTime']. "</td>
+						  <td>
+						  <form action = 'Reservations.php' method = 'post'>
+						  <input type = 'hidden' name = 'ShowingID' value ='" . $row['ID'] . "'>
+						  <input type='submit' value='Reserve Seats'>
+						  </form>
+						  </td>
 						  </tr>";
 			}
 		}

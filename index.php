@@ -56,7 +56,6 @@ Index for Janksby Database
 <br>
 <a href ="LoginPage.php">Login Page</a>
 <br>
-<a href ="Reservations.php">Reserve a Seat</a>
 <br>
 
 </body>
