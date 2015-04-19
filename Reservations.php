@@ -42,7 +42,7 @@ Reservations for Movie Showing
 	if(isset($_POST['ShowingID']))
 	{
 		$showingID = $_POST['ShowingID'];
-		/*
+		
 		$showingQuery = "select S.ShowDate, S.ShowTime, C.Name, T.TheaterNumber, M.Title
 									from MovieShowing S, Movie M, Cinema C, Theater T
 									where S.ID = $showingID
@@ -53,9 +53,9 @@ Reservations for Movie Showing
 		if($row = mysql_fetch_array($showingResult))
 		{
 			$showDate = $row['ShowDate'];
-			echo "<h1>Reservations for: " . $row['Title'] . "</h1>
-					  <h2>Cinema: " . $row['Name'] . "</h2>
-					  <h3></h3>
+			echo "Reservations for: " . $row['Title'] . " <br>
+					  Cinema: " . $row['Name'] . " <br>
+					  Show date/time: " . $row['ShowDate'] . " at " . $row['ShowTime'] . " <br>
 			
 			
 					  <body>";
@@ -64,7 +64,7 @@ Reservations for Movie Showing
 		
 		
 		
-		*/
+		
 		
 		$seatQuery = "select S.SeatingChart, T.SeatingRows, T.SeatingColumns
 				from MovieShowing S, Theater T 
@@ -101,7 +101,7 @@ Reservations for Movie Showing
 					if($seatingChartArray[$x][$y] == '0')
 					{
 						echo "<form action = 'ReserveSeat.php' method = 'post'>";
-						echo "<input type ='hidden' value = $showingID name ='ShowingID'>";
+						echo "<input type ='hidden' value = $showingID name ='showingID'>";
 						echo "<input type ='hidden' value = $rowSelected name ='row'>";
 						echo "<input type ='hidden' value = $columnSelected name ='column'>";
 						echo "<input type='submit' value= '" . $y . ", " . $x . "'>";
@@ -110,7 +110,7 @@ Reservations for Movie Showing
 					
 					else
 					{
-						echo "<input type='submit' value='Reserve Seats' disabled>";
+						echo "<input type='submit' value='Reserved' disabled>";
 					}
 					
 					echo "</td>";
@@ -127,10 +127,10 @@ Reservations for Movie Showing
 	}
 	
 	else
-{
-	echo '<br>Got here illegally!';
-	echo '<br><a href ="index.php">Go to Index</a>';
-}
+	{
+		echo '<br>Got here illegally!';
+		echo '<br><a href ="index.php">Go to Index</a>';
+	}
 
 ?>
 

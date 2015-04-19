@@ -69,13 +69,13 @@ Index for Janksby Database
 
 	if($_SESSION["userType"] == "member")
 	{
-		
+		echo "Member ID: " . $_SESSION['memberID'] . "<br>";
+		echo "<a href ='MovieListings.php'>Movie Listings</a>";
 	}
-
 
 ?>
 
-<a href ="MovieListings.php">Movie Listings</a>
+
 <br>
 <a href ="LoginPage.php">Login Page</a>
 <br>

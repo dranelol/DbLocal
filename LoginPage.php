@@ -10,9 +10,9 @@ Login Page
 </head>
 
 <h3>Login</h3>
-
 <body>
 
+<br>
 <br>
 Don't lie pls!
 
@@ -23,17 +23,15 @@ Don't lie pls!
 </form>
 
 
-<form action = "AdminLogin.php" method = "post">
-<input type='submit' value='Admin Login' name='admin'>
+<form action = "index.php" method = "post">
+<input type ='hidden' name='userType' value ='admin'>
+<input type='submit' value='Admin Login'>
 </form>
 
-<form action = "EmployeeLogin.php" method = "post">
-<input type='submit' value='Employee Login' name='employee'>
+<form action = "index.php" method = "post">
+<input type ='hidden' name='userType' value ='employee'>
+<input type='submit' value='Employee Login'>
 </form>
-
-
-
-
 
 <br>
 

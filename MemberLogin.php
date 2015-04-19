@@ -1,38 +1,17 @@
 <?php
-
-	include "login.php";
-
-	if(isset($_SESSION["userType"]) == false)
-	{	
-		echo "Not logged in!";
-		echo '<br><br>';
-		echo '<a href ="LoginPage.php">Go Log In</a>';
-		
-		die();
-	}
-	
+include "login.php";
 ?>
+
 <html>
 <head>
 <title> 
-Reservations for Movie Showing
+Member Login
 </title>
 </head>
 
-<h3>Reservations for Movie Showing</h3>
+<h3>Member Login</h3>
 <body>
 
-<?php 
-
-	$sessionUser = $_SESSION['userType'];
-
-	echo "Logged in as: $sessionUser"; 
-	
-	$date = $_SESSION["today"];
-	echo "<br>";
-	echo "Today's date: $date";
-	
-?> 
 <br>
 <br>
 
@@ -50,13 +29,13 @@ Reservations for Movie Showing
 			
 			echo "<select name='memberID'>";
 			
-			$membersQuery = "select AcctNum from Membership";
+			$membersQuery = "select ID from Member";
 			
 			$membersResult = mysql_query($membersQuery) or die(mysql_error());
 			
 			while($row = mysql_fetch_array($membersResult))
 			{
-				$memberID = $row['AcctNum'];
+				$memberID = $row['ID'];
 				
 				echo "<option value='$memberID'>$memberID</option>";
 			}
