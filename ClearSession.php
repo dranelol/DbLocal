@@ -51,4 +51,6 @@ Clear Session
 	$_SESSION["memberID"] = null;
 	
 	echo "Cleared session variables!";
+	
+	echo '<br><a href ="index.php">Go to Index</a>';
 ?>

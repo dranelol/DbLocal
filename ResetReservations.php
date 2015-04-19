@@ -83,4 +83,6 @@ Reset Reservations
 	$deleteResult = mysql_query($deleteReservationsQuery) or die(mysql_error());
 	
 	echo "Reservations and movie showing data reset!";
+	
+	echo '<br><a href ="index.php">Go to Index</a>';
 ?>
