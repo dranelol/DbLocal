@@ -4,6 +4,19 @@
 	if(isset($_POST["userType"]))
 	{
 		$_SESSION['userType'] = $_POST["userType"];
+		
+		if($_SESSION['userType'] == "member")
+		{
+			if(isset($_POST["memberID"]))
+			{
+				$_SESSION['memberID'] = $_POST["memberID"];
+			}
+		}
+		
+		else
+		{
+			$_SESSION['memberID'] = "";
+		}
 	}
 
 	else if(isset($_SESSION["userType"]) == false)
@@ -21,6 +34,8 @@
 		
 		$_SESSION["today"] = $date;
 	}
+	
+	
 	
 	
 	
@@ -46,11 +61,19 @@ Index for Janksby Database
 	echo "<br>";
 	echo "Today's date: $date";
 	
-	
-	
 ?> 
 <br>
 <br>
+
+<?php
+
+	if($_SESSION["userType"] == "member")
+	{
+		
+	}
+
+
+?>
 
 <a href ="MovieListings.php">Movie Listings</a>
 <br>

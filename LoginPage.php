@@ -13,19 +13,28 @@ Login Page
 
 <body>
 
-
 <br>
 Don't lie pls!
-<form action = "index.php" method = "post">
 
-<select name="userType">
-	<option value="user">User</option>
-	<option value="admin">Admin</option>
-	<option value="employee">Employee</option>
-</select>
-<br><br>
-<input type = "submit" value = "Log In">
+
+
+<form action = "MemberLogin.php" method = "post">
+<input type='submit' value='Member Login' name='member'>
 </form>
+
+
+<form action = "AdminLogin.php" method = "post">
+<input type='submit' value='Admin Login' name='admin'>
+</form>
+
+<form action = "EmployeeLogin.php" method = "post">
+<input type='submit' value='Employee Login' name='employee'>
+</form>
+
+
+
+
+
 <br>
 
 </body>

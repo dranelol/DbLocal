@@ -1,4 +1,5 @@
 <?php
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)

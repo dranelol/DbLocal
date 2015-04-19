@@ -7,12 +7,19 @@
 		echo "Not logged in!";
 		echo '<br><br>';
 		echo '<a href ="LoginPage.php">Go Log In</a>';
+		
 		die();
 	}
 	
 ?>
-
 <html>
+<head>
+<title> 
+Show Listings
+</title>
+</head>
+
+<h3>Show Movie Listings</h3>
 <body>
 
 <?php 
@@ -26,7 +33,6 @@
 	echo "Today's date: $date";
 	
 ?> 
-
 <br>
 <br>
 
@@ -57,7 +63,7 @@ if(isset($_POST["complex_select_menu"])
 	echo "<br>complex selected: $complex";
 	echo "<br>movie selected: $movie";
 	
-	// NOTE: STOP BEING A SHITLORD AND DYNAMICALLY BUILD THIS QUERY 
+	echo "<br><br>";
 	$listingsQueryBase = "select S.ID, C.Name, M.Title, S.ShowDate, S.ShowTime
 									from MovieShowing S, Cinema C, Movie M 
 									where C.ID = S.CinemaID
@@ -88,46 +94,6 @@ if(isset($_POST["complex_select_menu"])
 	 
 	$listingsQuery = $listingsQuery . " order by C.name, M.Title, S.ShowDate, S.ShowTime";
 		
-	
-	/* EXAMPLES
-	
-	// all complexes, all days, all movies
-	
-	select C.Name, M.Title, S.ShowDate, S.ShowTime
-		from MovieShowing S, Cinema C, Movie M 
-		where C.ID = S.CinemaID
-		and S.MovieId = M.ID
-	
-	// specific complex, all days, all movies
-	
-	select C.Name, M.Title, S.ShowDate, S.ShowTime
-		from MovieShowing S, Cinema C, Movie M 
-		where C.ID = S.CinemaID
-		and C.Name = '{$complex}'
-		and S.MovieId = M.ID
-		
-		
-	// specific complex, specific day, all movies
-	
-	select C.Name, M.Title, S.ShowDate, S.ShowTime
-		from MovieShowing S, Cinema C, Movie M 
-		where C.Name = '{$complex}'
-		and S.ShowDate = '{$dayToCheck}'
-		and C.ID = S.CinemaID
-		and S.MovieId = M.ID
-	
-	
-	// specific complex, specific day, specific movie
-	
-	select C.Name, M.Title, S.ShowDate, S.ShowTime
-		from MovieShowing S, Cinema C, Movie M 
-		where C.Name = '{$complex}'
-		and S.ShowDate = '{$dayToCheck}'
-		and M.Name = '{$movie}'
-		and C.ID = S.CinemaID
-		and S.MovieId = M.ID
-	
-	*/
 		
 	//echo "<br><br> $listingsQuery";
 		
@@ -137,7 +103,7 @@ if(isset($_POST["complex_select_menu"])
 	{
 		if(mysql_num_rows($listingsResult))
 		{
-			echo "<table border = \"1\" cellpadding = \"10\" align = \"center\">";
+			echo "<table border = \"1\" cellpadding = \"10\" align = \"left\">";
 			echo "<tr> 
 					  <th>Cinema Name</th> 
 					  <th>Movie Name</th> 
@@ -160,6 +126,8 @@ if(isset($_POST["complex_select_menu"])
 						  </td>
 						  </tr>";
 			}
+			
+			echo "</table>";
 		}
 		
 		else
@@ -186,12 +154,7 @@ else
 	echo '<br><a href ="index.php">Go to Index</a>';
 }
 
-
-
-
-
-
-
-
-
 ?>
+
+</body>
+</html>
