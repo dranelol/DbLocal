@@ -11,7 +11,6 @@
 		die();
 	}
 	
-	
 ?>
 <html>
 <head>
@@ -48,14 +47,17 @@ Reserve a Seat
 
 <?php
 
-	if(isset($_POST['row']) && isset($_POST['column']) && isset($_POST['showingID']))
+	if(isset($_POST['row']) && isset($_POST['column']) && isset($_POST['showingID']) && isset($_POST['memberName']))
 	{
 		
 		$row = $_POST['row'];
 		$column = $_POST['column'];
 		$showingID = $_POST['showingID'];
 		$memberID = $_SESSION['memberID'];
-		echo "You selected a reservation for row: " 
+		$memberName = $_POST['memberName'];
+		
+		echo "You selected a reservation for "
+		. $memberName . " on row: " 
 		. $row . " and seat: " 
 		. $column;
 		
@@ -66,6 +68,12 @@ Reserve a Seat
 		echo "<input type='submit' value='Confirm Seat Reservation'>";
 		
 		echo "</form>";
+	}
+	
+	else
+	{
+		echo '<br>Got here illegally!';
+		echo '<br><a href ="index.php">Go to Index</a>';
 	}
 ?>
 

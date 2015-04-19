@@ -26,6 +26,15 @@ Show Listings
 
 	$sessionUser = $_SESSION['userType'];
 
+	if($sessionUser != "member")
+	{
+		echo 'Not logged in as a member!';
+		echo '<br><br>';
+		echo '<a href ="LoginPage.php">Go Log In</a>';
+		
+		die();
+	}
+	
 	echo "Logged in as: $sessionUser"; 
 	
 	$date = $_SESSION["today"];

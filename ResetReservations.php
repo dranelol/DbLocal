@@ -1,5 +1,50 @@
-<?php 
+<?php
+
 	include "login.php";
+
+	if(isset($_SESSION["userType"]) == false)
+	{	
+		echo "Not logged in!";
+		echo '<br><br>';
+		echo '<a href ="LoginPage.php">Go Log In</a>';
+		
+		die();
+	}
+	
+?>
+<html>
+<head>
+<title>
+Reset Reservations
+</title>
+</head>
+
+<h3>Reset Reservations</h3>
+<body>
+
+<?php 
+
+	$sessionUser = $_SESSION['userType'];
+	
+	if($sessionUser != "admin")
+	{
+		echo 'Not logged in as a admin!';
+		echo '<br><br>';
+		echo '<a href ="LoginPage.php">Go Log In</a>';
+		
+		die();
+	}
+
+	echo "Logged in as: $sessionUser"; 
+	
+	$date = $_SESSION["today"];
+	echo "<br>";
+	echo "Today's date: $date";
+	
+?> 
+<br>
+<br>
+<?php
 	
 	$seatingQuery = "select S.ID, S.SeatingChart, T.ID, T.SeatingRows, T.SeatingColumns
 			from MovieShowing S, Theater T
@@ -22,10 +67,6 @@
 		$updateQuery = "update MovieShowing 
 				set SeatingChart = '$seatingChartSerialized'
 				where ID = '$row[0]'";
-		echo "<br>Showing ID:";
-		echo $row[0];
-		echo "<br>Theater ID:";
-		echo $row['ID'];
 		$updateSeatingResult = mysql_query($updateQuery) or die(mysql_error());
 		
 	}
@@ -36,6 +77,10 @@
 	{
 		$dumb = unserialize($row['SeatingChart']);
 		echo "<br><br>";
-		echo $dumb[2][3];
 	}
+	
+	$deleteReservationsQuery = "delete from Reservation";
+	$deleteResult = mysql_query($deleteReservationsQuery) or die(mysql_error());
+	
+	echo "Reservations and movie showing data reset!";
 ?>

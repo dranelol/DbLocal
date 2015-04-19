@@ -26,6 +26,15 @@ Reservations for Movie Showing
 
 	$sessionUser = $_SESSION['userType'];
 
+	if($sessionUser != "member")
+	{
+		echo 'Not logged in as a member!';
+		echo '<br><br>';
+		echo '<a href ="LoginPage.php">Go Log In</a>';
+		
+		die();
+	}
+	
 	echo "Logged in as: $sessionUser"; 
 	
 	$date = $_SESSION["today"];
@@ -36,12 +45,15 @@ Reservations for Movie Showing
 <br>
 <br>
 
-<form action = "ReserveSeat.php" method = "post">
 
 <?php
 	if(isset($_POST['ShowingID']))
 	{
 		$showingID = $_POST['ShowingID'];
+		$memberID = $_SESSION['memberID'];
+		
+		
+		
 		
 		$showingQuery = "select S.ShowDate, S.ShowTime, C.Name, T.TheaterNumber, M.Title
 									from MovieShowing S, Movie M, Cinema C, Theater T
@@ -62,8 +74,23 @@ Reservations for Movie Showing
 					  
 		}
 		
+		$membersQuery = "select M.Name from Member M where M.MemberAcctNum = $memberID";
 		
+		$membersResult = mysql_query($membersQuery) or die(mysql_error());
 		
+		echo "<br>";
+		echo "Select member to reserve seat for";
+		echo "<br>";
+		echo "<select name='memberName'>";
+		
+		while($row = mysql_fetch_array($membersResult))
+		{
+			$memberName = $row['Name'];
+			echo "<option value='$memberName'>$memberName</option>";
+		}
+		
+		echo "</select>";
+		echo "<br>";
 		
 		
 		$seatQuery = "select S.SeatingChart, T.SeatingRows, T.SeatingColumns
@@ -104,6 +131,7 @@ Reservations for Movie Showing
 						echo "<input type ='hidden' value = $showingID name ='showingID'>";
 						echo "<input type ='hidden' value = $rowSelected name ='row'>";
 						echo "<input type ='hidden' value = $columnSelected name ='column'>";
+						echo "<input type ='hidden' value = '$memberName' name ='memberName'>";
 						echo "<input type='submit' value= '" . $y . ", " . $x . "'>";
 						echo "</form>";
 					}

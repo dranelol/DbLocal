@@ -25,24 +25,22 @@ Member Login
 		
 		if($userType = 'member')
 		{
-			echo "Select your member ID<br>";
+			echo "Select your membership ID<br>";
 			
 			echo "<select name='memberID'>";
 			
-			$membersQuery = "select ID from Member";
+			$membersQuery = "select distinct AcctNum from Membership";
 			
 			$membersResult = mysql_query($membersQuery) or die(mysql_error());
 			
 			while($row = mysql_fetch_array($membersResult))
 			{
-				$memberID = $row['ID'];
+				$memberID = $row['AcctNum'];
 				
 				echo "<option value='$memberID'>$memberID</option>";
 			}
 			
-			
-			
-					  //<option value="member">Member</option>
+		  //<option value="member">Member</option>
 			echo "</select>";
 			echo "<br>";
 			echo "<input type ='hidden' value = 'member' name ='userType'>";
@@ -55,10 +53,10 @@ Member Login
 	}
 	
 	else
-{
-	echo '<br>Got here illegally!';
-	echo '<br><a href ="LoginPage.php">Go to Login Page</a>';
-}
+	{
+		echo '<br>Got here illegally!';
+		echo '<br><a href ="LoginPage.php">Go to Login Page</a>';
+	}
 ?>
 
 </form>

@@ -69,8 +69,15 @@ Index for Janksby Database
 
 	if($_SESSION["userType"] == "member")
 	{
-		echo "Member ID: " . $_SESSION['memberID'] . "<br>";
+		echo "Membership ID: " . $_SESSION['memberID'] . "<br>";
 		echo "<a href ='MovieListings.php'>Movie Listings</a>";
+	}
+	
+	if($_SESSION["userType"] == "admin")
+	{
+		echo "<a href ='ResetReservations.php'>Reset all Reservation and Movie Showing data</a>";
+		echo "<br>";
+		echo "<a href ='ClearSession.php'>Clear session variables</a>";
 	}
 
 ?>
