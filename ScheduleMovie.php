@@ -1,49 +1,112 @@
+<?php
+
+	include "login.php";
+
+	if(isset($_SESSION["userType"]) == false)
+	{	
+		echo "Not logged in!";
+		echo '<br><br>';
+		echo '<a href ="LoginPage.php">Go Log In</a>';
+		
+		die();
+	}
+	
+	
+?>
 <html>
 <head>
 <title> 
-Schedule Movie
+Schedule Movie Showing
 </title>
 </head>
 
-<h3>Schedule Movie</h3>
-<br>
-<!-- <form action="cmps460server.cacs.louisiana.edu/rma5149/AcctChQuery.php" method="POST"> -->
-Complex 
-<select name="complex_select_menu">
-	<option value="complex1">Complex 1</option>
-	<option value="complex2">Complex 2</option>
-	<option value="complex3">Complex 3</option>
-</select>
-<br>
-<br>
+<h3>
+Schedule Movie Showing
+</h3>
+<body>
 
-Movie 
-<select name="movie_select_menu">
-	<option value="thor">Thor</option>
-	<option value="avengers">The Avengers</option>
-	<option value="buttsekssisters">Buttseks Sisters 9</option>
-</select>
-<br>
-<br>
+<?php 
 
-Theater 
-<select name="theater_select_menu">
-	<option value="theater1">1</option>
-	<option value="theater2">2</option>
-	<option value="theater3">3</option>
-</select>
-<br>
-<br>
+	$sessionUser = $_SESSION['userType'];
+	
+	// restrict access only to certain userTypes
+	if($sessionUser != 'employee' && $sessionUser != "admin")
+	{
+		echo 'You do not have permission to access this page.';
+		echo '<br><br>';
+		echo '<a href ="LoginPage.php">Go Log In</a>';
+		
+		die();
+	}
+	
 
+	echo "Logged in as: $sessionUser"; 
+	
+	$date = $_SESSION["today"];
+	echo "<br>";
+	echo "Today's date: $date";
+	echo "<br>";
+
+
+	// Cinema Selection Menu
+	// ---------------------------------------------------------------------
+	echo "<br>";
+	echo "Complex ";
+	echo "<select name='complex_select_menu'>";
+	$complexQuery = "select ID, Name from Cinema";
+	$complexResult = mysql_query($complexQuery) or die(mysql_error());
+	
+	while($row = mysql_fetch_array($complexResult))
+	{
+			$cinemaID = $row['ID'];
+			$cinemaName = $row['Name'];
+			
+			echo "<option value='$cinemaID'>$cinemaName</option>";
+	}
+	
+	echo "</select>";
+	echo "<br>";
+	
+	
+	// Movie Selection Menu
+	// ---------------------------------------------------------------------
+	echo "<br>";
+	echo "Movie ";
+	echo "<select name='movie_select_menu'>";
+	$movieQuery = "select distinct ID, Title from Movie";
+	$movieResult = mysql_query($movieQuery) or die(mysql_error());
+	
+	while($row = mysql_fetch_array($movieResult))
+	{
+			$movieID = $row['ID'];
+			$movieName = $row['Title'];
+			
+			echo "<option value='$movieID'>$movieName</option>";
+	}
+	
+	echo "</select>";
+	echo "<br>";
+	
+	
+	// Theater Selection Menu
+	// ---------------------------------------------------------------------
+	echo "<br>";
+	echo "Theater Number: <input type='text' name='theaterNumber'>";
+	echo "<br>";
+	
+?> 
+
+
+<br>
 Date
 <select name="date_select_menu">
 	<option value="today">Today</option>
-	<option value="today+1">Today + 1</option>
-	<option value="today+2">Today + 2</option>
-	<option value="today+3">Today + 3</option>
-	<option value="today+4">Today + 4</option>
-	<option value="today+5">Today + 5</option>
-	<option value="today+6">Today + 6</option>
+	<option value="today+1">01/02/2015</option>
+	<option value="today+2">01/03/2015</option>
+	<option value="today+3">01/04/2015</option>
+	<option value="today+4">01/05/2015</option>
+	<option value="today+5">01/06/2015</option>
+	<option value="today+6">01/07/2015</option>
 </select>
 <br>
 <br>

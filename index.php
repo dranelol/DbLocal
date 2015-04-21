@@ -73,6 +73,12 @@ Index for Janksby Database
 		echo "<a href ='MovieListings.php'>Movie Listings</a>";
 	}
 	
+	if($_SESSION["userType"] == "employee")
+	{
+		echo "<a href ='ScheduleMovie.php'>Schedule a movie showing</a>";
+	}
+	
+	
 	if($_SESSION["userType"] == "admin")
 	{
 		echo "<a href ='ResetReservations.php'>Reset all Reservation and Movie Showing data</a>";
