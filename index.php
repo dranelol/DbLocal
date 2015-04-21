@@ -78,6 +78,8 @@ Index for Janksby Database
 		echo "<a href ='ResetReservations.php'>Reset all Reservation and Movie Showing data</a>";
 		echo "<br>";
 		echo "<a href ='ClearSession.php'>Clear session variables</a>";
+		echo "<br>";
+		echo "<a href ='AddCinema.php'>Add a Cinema</a>";
 	}
 
 ?>
