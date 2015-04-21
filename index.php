@@ -4,6 +4,19 @@
 	if(isset($_POST["userType"]))
 	{
 		$_SESSION['userType'] = $_POST["userType"];
+		
+		if($_SESSION['userType'] == "member")
+		{
+			if(isset($_POST["memberID"]))
+			{
+				$_SESSION['memberID'] = $_POST["memberID"];
+			}
+		}
+		
+		else
+		{
+			$_SESSION['memberID'] = "";
+		}
 	}
 
 	else if(isset($_SESSION["userType"]) == false)
@@ -21,6 +34,8 @@
 		
 		$_SESSION["today"] = $date;
 	}
+	
+	
 	
 	
 	
@@ -46,16 +61,31 @@ Index for Janksby Database
 	echo "<br>";
 	echo "Today's date: $date";
 	
-	
-	
 ?> 
 <br>
 <br>
 
-<a href ="MovieListings.php">Movie Listings</a>
+<?php
+
+	if($_SESSION["userType"] == "member")
+	{
+		echo "Membership ID: " . $_SESSION['memberID'] . "<br>";
+		echo "<a href ='MovieListings.php'>Movie Listings</a>";
+	}
+	
+	if($_SESSION["userType"] == "admin")
+	{
+		echo "<a href ='ResetReservations.php'>Reset all Reservation and Movie Showing data</a>";
+		echo "<br>";
+		echo "<a href ='ClearSession.php'>Clear session variables</a>";
+	}
+
+?>
+
+
 <br>
 <a href ="LoginPage.php">Login Page</a>
-
+<br>
 <br>
 
 </body>
