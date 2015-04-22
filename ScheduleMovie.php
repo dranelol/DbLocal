@@ -187,7 +187,7 @@ Schedule Movie Showing Confirmation
 	echo "<option value='23:30:00'>11:30 PM</option>";	
 	
 	echo "</select>";	
-	echo "<br>";
+	echo "<br><br>";
 	
 	echo "<input type='submit' value='Submit'/>";
 	
