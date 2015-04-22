@@ -71,6 +71,8 @@ Index for Janksby Database
 	{
 		echo "Membership ID: " . $_SESSION['memberID'] . "<br>";
 		echo "<a href ='MovieListings.php'>Movie Listings</a>";
+		echo "<br>";
+		echo "<a href ='AddMemberToAccount.php'>Add a Member to your Membership</a>";
 	}
 	
 	if($_SESSION["userType"] == "employee")
