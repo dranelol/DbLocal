@@ -74,7 +74,7 @@ Reservations for Movie Showing
 					  
 		}
 		
-		$membersQuery = "select M.Name from Member M where M.MemberAcctNum = $memberID";
+		$membersQuery = "select M.ID, M.Name, M.MemberAcctNum, M.MemberAcctOrder from Member M where M.MemberAcctNum = $memberID";
 		
 		$membersResult = mysql_query($membersQuery) or die(mysql_error());
 		
@@ -85,8 +85,11 @@ Reservations for Movie Showing
 		
 		while($row = mysql_fetch_array($membersResult))
 		{
+			$memberID = $row['ID'];
 			$memberName = $row['Name'];
-			echo "<option value='$memberName'>$memberName</option>";
+			$memberAcct = $row['MemberAcctNum'];
+			$memberAcctOrder = $row['MemberAcctOrder'];
+			echo "<option value='$memberID'>$memberName, account $memberAcct:$memberAcctOrder</option>";
 		}
 		
 		echo "</select>";
@@ -131,6 +134,7 @@ Reservations for Movie Showing
 						echo "<input type ='hidden' value = $showingID name ='showingID'>";
 						echo "<input type ='hidden' value = $rowSelected name ='row'>";
 						echo "<input type ='hidden' value = $columnSelected name ='column'>";
+						echo "<input type ='hidden' value = '$memberID' name ='memberID'>";
 						echo "<input type ='hidden' value = '$memberName' name ='memberName'>";
 						echo "<input type='submit' value= '" . $y . ", " . $x . "'>";
 						echo "</form>";

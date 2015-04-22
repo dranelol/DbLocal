@@ -23,11 +23,13 @@ Admin Login
 
 	}
 	
+	else
+	{
+		echo '<br>Got here illegally!';
+		echo '<br><a href ="LoginPage.php">Go to Login Page</a>';
+	}
+	
 ?>
-
-</body>
-</html>
-
 
 
 </body>

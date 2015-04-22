@@ -48,18 +48,19 @@ Reserve a Seat
 <?php
 	
 	
-	if(isset($_POST['row']) && isset($_POST['column']) && isset($_POST['showingID']) && isset($_POST['memberName']))
+	if(isset($_POST['row']) && isset($_POST['column']) && isset($_POST['showingID']) && isset($_POST['memberID']) && isset($_POST['memberName']))
 	{
 		$row = $_POST['row'];
 		$column = $_POST['column'];
 		$showingID = $_POST['showingID'];
-		$memberID = $_SESSION['memberID'];
+		$membershipID = $_SESSION['memberID'];
+		$member = $_POST['memberID'];
 		$memberName = $_POST['memberName'];
 		
-		$memberCountQuery = "select count(*) as mCount from Member M where M.MemberAcctNum='$memberID'";
+		$memberCountQuery = "select count(*) as mCount from Member M where M.MemberAcctNum='$membershipID'";
 		$memberCountResult = mysql_query($memberCountQuery) or die(mysql_error());
 		
-		$memberCountReservationsQuery = "select count(*) as rCount from Reservation R where R.MemberID='$memberID'";
+		$memberCountReservationsQuery = "select count(*) as rCount from Reservation R where R.MemberID='$membershipID'";
 		$memberCountReservationsResult = mysql_query($memberCountReservationsQuery) or die(mysql_error());
 		
 		$row1 = mysql_fetch_array($memberCountResult);
