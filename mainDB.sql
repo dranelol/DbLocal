@@ -86,8 +86,8 @@ CHARACTER SET = utf8 engine = InnoDB;
 create table Member
 (
 	ID int(11) NOT NULL auto_increment,
-	MemberAcctNum int(11) NOT NULL,
-	MemberAcctOrder int(11) NOT NULL,
+	MemberAcctNum int(11),
+	MemberAcctOrder int(11),
 	Name varchar(256) NOT NULL,
 	Address varchar(256) NOT NULL,
 	Email varchar(255) NOT NULL,

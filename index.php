@@ -88,6 +88,12 @@ Index for Janksby Database
 		echo "<a href ='AddCinema.php'>Add a Cinema</a>";
 	}
 	
+	if($_SESSION["userType"] == "guest")
+	{
+		echo "<br>";
+		echo "<a href ='AddMembership.php'>Create Membership Account</a>";
+	}
+	
 	
 ?>
 
