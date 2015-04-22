@@ -10,18 +10,17 @@
 		
 		die();
 	}
-	
-	
 ?>
+
 <html>
 <head>
 <title> 
-Schedule Movie Showing
+Schedule Movie Confirmation
 </title>
 </head>
 
 <h3>
-Schedule Movie Showing
+Schedule Movie Showing Confirmation
 </h3>
 <body>
 
@@ -39,7 +38,6 @@ Schedule Movie Showing
 		die();
 	}
 	
-
 	echo "Logged in as: $sessionUser"; 
 	
 	$date = $_SESSION["today"];
@@ -47,7 +45,7 @@ Schedule Movie Showing
 	echo "Today's date: $date";
 	echo "<br>";
 
-
+	echo "<form action='ScheduleMovieConfirmation.php' method='post'>";
 	// Cinema Selection Menu
 	// ---------------------------------------------------------------------
 	echo "<br>";
@@ -55,7 +53,7 @@ Schedule Movie Showing
 	echo "<select name='complex_select_menu'>";
 	$complexQuery = "select ID, Name from Cinema";
 	$complexResult = mysql_query($complexQuery) or die(mysql_error());
-	
+		
 	while($row = mysql_fetch_array($complexResult))
 	{
 			$cinemaID = $row['ID'];
@@ -91,73 +89,111 @@ Schedule Movie Showing
 	// Theater Selection Menu
 	// ---------------------------------------------------------------------
 	echo "<br>";
-	echo "Theater Number: <input type='text' name='theaterNumber'>";
+	echo "Theater Number: <input type='text' name='theaterNumber' required>";
 	echo "<br>";
+	
+	// Date Selection Menu
+	// ---------------------------------------------------------------------
+	echo "<br>";
+	echo "Date: ";
+	echo "<select name='date_select_menu'>"; 
+	echo "<option value='2015-01-01'>Today 1/1/2015</option>";
+	echo "<option value='2015-01-02'>Friday 1/2/2015</option>";
+	echo "<option value='2015-01-03'>Saturday 1/3/2015</option>";
+	echo "<option value='2015-01-04'>Sunday 1/4/2015</option>";
+	echo "<option value='2015-01-05'>Monday 1/5/2015</option>";
+	echo "<option value='2015-01-06'>Tuesday 1/6/2015</option>";
+	echo "<option value='2015-01-07'>Wednesday 1/7/2015</option>";
+	echo "</select>";
+	echo "<br>";	
+
+	// Time Selection Menu
+	// ---------------------------------------------------------------------	
+	echo "<br>";
+	echo "Time: ";
+	echo "<select name='time_select_menu'>"; 	
+	echo "<option value='00:00:00'>12:00 AM</option>";
+	echo "<option value='00:30:00'>12:30 AM</option>";
+	
+	echo "<option value='01:00:00'>01:00 AM</option>";
+	echo "<option value='01:30:00'>01:30 AM</option>";
+	
+	echo "<option value='02:00:00'>02:00 AM</option>";
+	echo "<option value='02:30:00'>02:30 AM</option>";	
+
+	echo "<option value='03:00:00'>03:00 AM</option>";
+	echo "<option value='03:30:00'>03:30 AM</option>";	
+	
+	echo "<option value='04:00:00'>04:00 AM</option>";
+	echo "<option value='04:30:00'>04:30 AM</option>";	
+	
+	echo "<option value='05:00:00'>05:00 AM</option>";
+	echo "<option value='05:30:00'>05:30 AM</option>";	
+	
+	echo "<option value='06:00:00'>06:00 AM</option>";
+	echo "<option value='06:30:00'>06:30 AM</option>";	
+	
+	echo "<option value='07:00:00'>07:00 AM</option>";
+	echo "<option value='07:30:00'>07:30 AM</option>";
+
+	echo "<option value='08:00:00'>08:00 AM</option>";
+	echo "<option value='08:30:00'>08:30 AM</option>";	
+	
+	echo "<option value='09:00:00'>09:00 AM</option>";
+	echo "<option value='09:30:00'>09:30 AM</option>";	
+	
+	echo "<option value='10:00:00'>10:00 AM</option>";
+	echo "<option value='10:30:00'>10:30 AM</option>";	
+	
+	echo "<option value='11:00:00'>11:00 AM</option>";
+	echo "<option value='11:30:00'>11:30 AM</option>";
+	
+
+
+	echo "<option value='12:00:00'>12:00 PM</option>";
+	echo "<option value='12:30:00'>12:30 PM</option>";
+	
+	echo "<option value='13:00:00'>01:00 PM</option>";
+	echo "<option value='13:30:00'>01:30 PM</option>";
+	
+	echo "<option value='14:00:00'>02:00 PM</option>";
+	echo "<option value='14:30:00'>02:30 AM</option>";	
+
+	echo "<option value='15:00:00'>03:00 PM</option>";
+	echo "<option value='15:30:00'>03:30 PM</option>";	
+	
+	echo "<option value='16:00:00'>04:00 PM</option>";
+	echo "<option value='16:30:00'>04:30 PM</option>";	
+	
+	echo "<option value='17:00:00'>05:00 PM</option>";
+	echo "<option value='17:30:00'>05:30 PM</option>";	
+	
+	echo "<option value='18:00:00'>06:00 PM</option>";
+	echo "<option value='18:30:00'>06:30 PM</option>";	
+	
+	echo "<option value='19:00:00'>07:00 PM</option>";
+	echo "<option value='19:30:00'>07:30 PM</option>";
+
+	echo "<option value='20:00:00'>08:00 PM</option>";
+	echo "<option value='20:30:00'>08:30 PM</option>";	
+	
+	echo "<option value='21:00:00'>09:00 PM</option>";
+	echo "<option value='21:30:00'>09:30 PM</option>";	
+	
+	echo "<option value='22:00:00'>10:00 PM</option>";
+	echo "<option value='22:30:00'>10:30 PM</option>";	
+	
+	echo "<option value='23:00:00'>11:00 PM</option>";
+	echo "<option value='23:30:00'>11:30 PM</option>";	
+	
+	echo "</select>";	
+	echo "<br>";
+	
+	echo "<input type='submit' value='Submit'/>";
+	
+	echo "</form>";
 	
 ?> 
 
-
-<br>
-Date
-<select name="date_select_menu">
-	<option value="today">Today</option>
-	<option value="today+1">01/02/2015</option>
-	<option value="today+2">01/03/2015</option>
-	<option value="today+3">01/04/2015</option>
-	<option value="today+4">01/05/2015</option>
-	<option value="today+5">01/06/2015</option>
-	<option value="today+6">01/07/2015</option>
-</select>
-<br>
-<br>
-
-Time
-<select name="time_select_menu">
-	<option value="00:00">12:00</option>
-	<option value="00:30">12:30</option>	
-	
-	<option value="01:00">01:00</option>
-	<option value="01:30">01:30</option>
-	
-	<option value="02:00">02:00</option>
-	<option value="02:30">02:30</option>	
-	
-	<option value="03:00">03:00</option>
-	<option value="03:30">03:30</option>	
-	
-	<option value="04:00">04:00</option>
-	<option value="04:30">04:30</option>	
-	
-	<option value="05:00">05:00</option>
-	<option value="05:30">05:30</option>	
-	
-	<option value="06:00">06:00</option>
-	<option value="06:30">06:30</option>	
-	
-	<option value="07:00">07:00</option>
-	<option value="07:30">07:30</option>	
-	
-	<option value="08:00">08:00</option>
-	<option value="08:30">08:30</option>	
-	
-	<option value="09:00">09:00</option>
-	<option value="09:30">09:30</option>	
-	
-	<option value="10:00">10:00</option>
-	<option value="10:30">10:30</option>	
-	
-	<option value="11:00">11:00</option>
-	<option value="11:30">11:30</option>
-</select>
-<select name="ampm_select_menu">
-	<option value="am">AM</option>
-	<option value="pm">PM</option>
-</select>
-<br>
-<br>
-
-<button type="button">Submit</button>
-
-</form>
 </body>
 </html>
