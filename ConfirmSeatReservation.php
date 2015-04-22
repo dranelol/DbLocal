@@ -48,17 +48,20 @@ Reserve a Seat
 
 <?php
 
-	if(isset($_POST['row']) && isset($_POST['column']) && isset($_POST['showingID']))
+	if(isset($_POST['row']) && isset($_POST['column']) && isset($_POST['showingID']) && isset($_POST['memberID']))
 	{
 		$row = $_POST['row'];
 		$column = $_POST['column'];
 		$showingID = $_POST['showingID'];
 		$memberID = $_SESSION['memberID'];
+		$member = $_POST['memberID'];
+		
+		
 		
 		// insert a new row into reservation table
 		$insertReservation = "insert into 
-										Reservation (MemberID, MovieShowingID, SeatRow, SeatColumn)
-										values ($memberID, $showingID, $row, $column)";
+										Reservation (MemberID, MembershipID, MovieShowingID, SeatRow, SeatColumn)
+										values ($member, $memberID, $showingID, $row, $column)";
 										
 		$insertResult = mysql_query($insertReservation) or die(mysql_error());
 		

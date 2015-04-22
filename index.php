@@ -71,6 +71,8 @@ Index for Janksby Database
 	{
 		echo "Membership ID: " . $_SESSION['memberID'] . "<br>";
 		echo "<a href ='MovieListings.php'>Movie Listings</a>";
+		echo "<br>";
+		echo "<a href ='AddMemberToAccount.php'>Add a Member to your Membership</a>";
 	}
 	
 	if($_SESSION["userType"] == "employee")
@@ -84,11 +86,21 @@ Index for Janksby Database
 		echo "<a href ='ResetReservations.php'>Reset all Reservation and Movie Showing data</a>";
 		echo "<br>";
 		echo "<a href ='ClearSession.php'>Clear session variables</a>";
+		echo "<br>";
+		echo "<a href ='AddCinema.php'>Add a Cinema</a>";
 	}
-
+	
+	if($_SESSION["userType"] == "guest")
+	{
+		echo "<br>";
+		echo "<a href ='AddMembership.php'>Create Membership Account</a>";
+	}
+	
+	
 ?>
 
-
+<br>
+<a href ='ViewingHistory.php'>Display Viewing History</a>
 <br>
 <a href ="LoginPage.php">Login Page</a>
 <br>

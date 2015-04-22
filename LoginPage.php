@@ -16,7 +16,10 @@ Login Page
 <br>
 Don't lie pls!
 
-
+<form action = "index.php" method = "post">
+<input type ='hidden' name='userType' value ='guest'>
+<input type='submit' value='Guest Login'>
+</form>
 
 <form action = "MemberLogin.php" method = "post">
 <input type='submit' value='Member Login' name='member'>

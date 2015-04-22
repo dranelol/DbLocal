@@ -47,7 +47,7 @@ create table Movie
 	Stars varchar(1024), /*serialized 1d array */
 	Description varchar(256) NOT NULL,
 	RunningTimeMinutes int(11) NOT NULL, 
-	RatingOutOfTen int(4) NOT NULL,
+	Rating varchar(256) NOT NULL,
 	primary key(ID)
 	
 )
@@ -86,7 +86,8 @@ CHARACTER SET = utf8 engine = InnoDB;
 create table Member
 (
 	ID int(11) NOT NULL auto_increment,
-	MemberAcctNum int(11) NOT NULL,
+	MemberAcctNum int(11),
+	MemberAcctOrder int(11),
 	Name varchar(256) NOT NULL,
 	Address varchar(256) NOT NULL,
 	Email varchar(255) NOT NULL,
@@ -104,6 +105,7 @@ create table Reservation
 (
 	ID int(11) NOT NULL auto_increment,
 	MemberID int(11) NOT NULL,
+	MembershipID int(11) NOT NULL,
 	MovieShowingID int(11) NOT NULL,
 	SeatRow int(11) NOT NULL,
 	SeatColumn int(11) NOT NULL,

@@ -30,7 +30,7 @@ HEADING
 	$sessionUser = $_SESSION['userType'];
 	
 	// restrict access only to certain userTypes
-	
+
 	/*
 	if($sessionUser != "member")
 	{
@@ -57,6 +57,8 @@ HEADING
 
 	// CODE STARTS HERE
 	
+			  
+			  
 ?>
 
 </body>
