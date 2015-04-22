@@ -42,6 +42,7 @@ Reserve a Seat
 	echo "Today's date: $date";
 	
 ?> 
+
 <br>
 <br>
 

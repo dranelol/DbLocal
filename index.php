@@ -87,10 +87,12 @@ Index for Janksby Database
 		echo "<br>";
 		echo "<a href ='AddCinema.php'>Add a Cinema</a>";
 	}
-
+	
+	
 ?>
 
-
+<br>
+<a href ='ViewingHistory.php'>Display Viewing History</a>
 <br>
 <a href ="LoginPage.php">Login Page</a>
 <br>
