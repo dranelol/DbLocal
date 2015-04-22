@@ -41,6 +41,24 @@ Reservations for Movie Showing
 	echo "<br>";
 	echo "Today's date: $date";
 	
+	// BLOW MIND SHIT DONT WORRY IT WORKS
+?> 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script>
+			var hiddenInputClass = 'memberInfoSelect';
+			var selectId = 'memberInfo'
+			$(document).ready(function(){
+				$("#"+selectId).change(function(){
+					var v = $(this).val();
+					$("."+hiddenInputClass).each(function(){
+						$(this).val(v);
+					});
+				
+				});
+			});
+		</script>
+	<?php
+	
 ?> 
 <br>
 <br>
@@ -51,8 +69,6 @@ Reservations for Movie Showing
 	{
 		$showingID = $_POST['ShowingID'];
 		$memberID = $_SESSION['memberID'];
-		
-		
 		
 		
 		$showingQuery = "select S.ShowDate, S.ShowTime, C.Name, T.TheaterNumber, M.Title
@@ -81,7 +97,8 @@ Reservations for Movie Showing
 		echo "<br>";
 		echo "Select member to reserve seat for";
 		echo "<br>";
-		echo "<select name='memberName'>";
+		echo "<select id='memberInfo'>";
+		echo "<option value='none'>Select member</option>";
 		
 		while($row = mysql_fetch_array($membersResult))
 		{
@@ -89,17 +106,17 @@ Reservations for Movie Showing
 			$memberName = $row['Name'];
 			$memberAcct = $row['MemberAcctNum'];
 			$memberAcctOrder = $row['MemberAcctOrder'];
-			echo "<option value='$memberID'>$memberName, account $memberAcct:$memberAcctOrder</option>";
+			echo "<option value='$memberName:$memberID'>$memberName, account $memberAcct:$memberAcctOrder</option>";
 		}
 		
 		echo "</select>";
 		echo "<br>";
 		
-		
 		$seatQuery = "select S.SeatingChart, T.SeatingRows, T.SeatingColumns
 				from MovieShowing S, Theater T 
 				where S.ID = $showingID
 				and S.TheaterID = T.ID";
+				
 		$seatingChart = mysql_query($seatQuery) or die(mysql_error());
 
 		while($row = mysql_fetch_array($seatingChart))
@@ -107,6 +124,9 @@ Reservations for Movie Showing
 			$seatingChartArray = unserialize($row['SeatingChart']);
 			$seatingRows = $row['SeatingRows'];
 			$seatingColumns = $row['SeatingColumns'];
+			
+			//echo $seatingRows;
+			//echo $seatingColumns;
 			
 			echo "<table border = \"1\" cellpadding = \"10\" align = \"left\">";
 			
@@ -134,9 +154,21 @@ Reservations for Movie Showing
 						echo "<input type ='hidden' value = $showingID name ='showingID'>";
 						echo "<input type ='hidden' value = $rowSelected name ='row'>";
 						echo "<input type ='hidden' value = $columnSelected name ='column'>";
-						echo "<input type ='hidden' value = '$memberID' name ='memberID'>";
-						echo "<input type ='hidden' value = '$memberName' name ='memberName'>";
+						echo "<input type ='hidden' name = 'memberInfo' class = 'memberInfoSelect'>";
+						//echo "<input type ='hidden' value = '$memberID' name ='memberID'>";
+						//echo "<input type ='hidden' value = '$memberName' name ='memberName'>";
+						/*
+						echo "<input type ='hidden' value = '";
+						?>
+						<script> 
+							var e = document.getElementById("memberInfo").value;
+							document.write(e); 
+						</script>
+						<?php 
+						echo "' name = 'memberInfo'>";
+						*/
 						echo "<input type='submit' value= '" . $y . ", " . $x . "'>";
+						
 						echo "</form>";
 					}
 					
