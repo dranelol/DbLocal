@@ -87,7 +87,18 @@ Index for Janksby Database
 		echo "<br>";
 		echo "<a href ='ClearSession.php'>Clear session variables</a>";
 		echo "<br>";
+		
+		echo "<br><b> Manage Cinemas </b>";
+		echo "<br>";
 		echo "<a href ='AddCinema.php'>Add a Cinema</a>";
+		echo "<br>";
+		echo "<a href ='DeleteCinema.php'>Delete a Cinema</a>";
+		echo "<br>";
+		
+		echo "<br><b> Manage Theaters </b>";
+		echo "<br>";
+		echo "<a href ='AddTheater.php'>Add a Theater</a>";
+		echo "<br>";
 	}
 	
 	if($_SESSION["userType"] == "guest")
