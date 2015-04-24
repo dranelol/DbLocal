@@ -83,6 +83,8 @@ Index for Janksby Database
 	
 	if($_SESSION["userType"] == "admin")
 	{
+		echo "<a href ='ReloadDatabase.php'>Reset database with test data</a>";
+		echo "<br>";
 		echo "<a href ='ResetReservations.php'>Reset all Reservation and Movie Showing data</a>";
 		echo "<br>";
 		echo "<a href ='ClearSession.php'>Clear session variables</a>";

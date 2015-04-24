@@ -31,16 +31,16 @@ HEADING
 	
 	// restrict access only to certain userTypes
 
-	/*
-	if($sessionUser != "member")
+	
+	if($sessionUser != "admin")
 	{
-		echo 'Not logged in as a member!';
+		echo 'Not logged in as a admin!';
 		echo '<br><br>';
 		echo '<a href ="LoginPage.php">Go Log In</a>';
 		
 		die();
 	}
-	*/
+	
 
 	echo "Logged in as: $sessionUser"; 
 	
@@ -55,10 +55,16 @@ HEADING
 
 <?php 
 
-	// CODE STARTS HERE
+	$reloadQuery = "source mainDB.sql";
+	$reloadResult = mysql_query($reloadQuery) or die(mysql_error());
+	
+	echo "Database reloaded successfully with test data!";
+	
+	
+	echo '<br><a href ="index.php">Go to Index</a>';
 	
 			  
-	echo '<br><a href ="index.php">Go to Index</a>';	  
+			  
 ?>
 
 </body>
