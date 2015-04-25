@@ -186,7 +186,7 @@ Reservations for Movie Showing
 			echo "</table>";
 			
 			
-			
+			echo '<br><br><a href ="index.php">Go to Index</a>';
 		}
 	}
 	

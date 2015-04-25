@@ -16,12 +16,12 @@
 <html>
 <head>
 <title> 
-TITLE
+Reset database
 </title>
 </head>
 
 <h3>
-HEADING
+Reset database
 </h3>
 <body>
 

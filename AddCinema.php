@@ -62,6 +62,13 @@ Add a Cinema
 		$address = $_POST['address'];
 		$phoneNumber = $_POST['phoneNumber'];
 		
+		if($name == '' || $address == '' || $phoneNumber == '')
+		{
+			echo "Need to specify a value for all fields.";
+			echo '<br><a href ="index.php">Go to Index</a>';
+			die();
+		}
+		
 		$addCinemaQuery = "insert into Cinema (Name, Address, PhoneNumber)
 										values ('$name', '$address', '$phoneNumber')";
 		$addCinemaResult = mysql_query($addCinemaQuery) or die(mysql_error());
