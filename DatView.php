@@ -48,22 +48,28 @@
 ?> 
 
 <?php
-        $seentItQuery = "select C.Name, M.Title, S.ShowTime 
-        from Movie M, Cinema C, Reservation R, MovieShowing S 
-        where C.ID = S.CinemaID and R.MovieShowingID = S.ID and S.MovieID = M.ID and R.MembershipID = '{$_SESSION['memberID']}'";
+        $seentItQuery = "select B.Name as User, C.Name, S.MovieID, M.Title, S.ShowTime 
+        from Member B, Movie M, Cinema C, Reservation R, MovieShowing S
+        where   C.ID = S.CinemaID 
+            and R.MovieShowingID = S.ID 
+            and S.MovieID = M.ID 
+            and R.MemberID = B.ID 
+            and R.MembershipID = '{$_SESSION['memberID']}'";
         $seentItResult = mysql_query($seentItQuery) or die(mysql_error());
 
         if($seentItResult){	
             if(mysql_num_rows($seentItResult)){		
                 echo "<table border = \"1\" cellpadding = \"10\" align = \"left\">";
                     echo "<tr> 
-                              <th>Name</th> 
-                              <th>Title</th> 
-                              <th>ShowTime</th>
+                              <th>Member</th> 
+                              <th>Cinema</th> 
+                              <th>Movie</th> 
+                              <th>Time</th>
                           </tr>";
                       //MemberID | MembershipID | MovieShowingID | SeatRow | SeatColumn
                     while($row = mysql_fetch_array($seentItResult)){                
                         echo "<tr>
+                                  <td>" . $row['User'].     "</td>
                                   <td>" . $row['Name'].     "</td>
                                   <td>" . $row['Title'].    "</td>
                                   <td>" . $row['ShowTime']. "</td>

@@ -1,71 +1,103 @@
-<?php
-
-	include "login.php";
-
+<?php 
+	include "login.php"; 
 	if(isset($_SESSION["userType"]) == false)
 	{	
 		echo "Not logged in!";
 		echo '<br><br>';
-		echo '<a href ="LoginPage.php">Go Log In</a>';
-		
+		echo '<a href ="LoginPage.php">Go Log In</a>';		
 		die();
-	}
-	
-	
+	} 
 ?>
 <html>
-<head>
-<title> 
-Movie Viewing History
-</title>
-</head>
-<h3>Movie Viewing History</h3>
+    <head>    
+        <title> Movie Viewing History</title>
+        <style>
+            hr { 
+                display: block;
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+                margin-left: auto;
+                margin-right: auto;
+                border-style: inset;
+                border-width: 1px;
+            } 
+        </style>
+    </head> 
+    
+<h3>Movie Viewing History</h3><hr> 
+
 <body>
 
 <?php 
 
 	$sessionUser = $_SESSION['userType'];
-	
-	/*
-	if($sessionUser != "member")
-	{
-		echo 'Not logged in as a member!';
-		echo '<br><br>';
-		echo '<a href ="LoginPage.php">Go Log In</a>';
-		
-		die();
-	}
-	*/
-
-	echo "Logged in as: $sessionUser"; 
-	
-	$date = $_SESSION["today"];
-	echo "<br>";
-	echo "Today's date: $date";
-	
+    $date = $_SESSION["today"];
+    $time = date('Y-m-d'); 
+    
+    echo "Logged in as: <b> $sessionUser </b><br>";	
+    echo "Member ID: <b> {$_SESSION['memberID']} </b> <br>";
+    echo "Today's date: <b>$date</b><br>";    
+    echo "<hr>"; 
+    
 ?> 
-<br>
-<br>
 
-<?php 
+<!--
+|Movie viewing history|
+    -For either a selected individual or a selected account, show a list of the movies they have seen. 
+    -If the listing is for an account, list the movies seen by each member associated with the account.
+    -The account history will be in alphabetical order by movie title within member (in alphabetical order).
+-->
 
-	// CODE STARTS HERE
-	echo "<form action = 'PageToPostDataTo.php' method = 'post'>";
-	echo "<select name='member'>";
-	echo "<option value='1'>Select member 1</option>";
-	echo "<option value='2'>Select member 2</option>";
-	echo "<option value='3'>Select member 3</option>";
-	echo "<option value='4'>Select member 4</option>";
-	echo "<option value='5'>Select member 5</option>";
-	echo "<option value='6'>Select member 6</option>";
-	echo "</select>";
-	echo "<br>";
-	echo "<input type ='submit' name = 'Submit Form'>";
-	echo "</form>";
-	
-	
-	
-?>
-
+<form action = 'DatView.php' method = 'post'>
+    <?php  
+        $memberQuery = "SELECT * FROM Member where MemberAcctNum = 1";
+        $memberResult = mysql_query($memberQuery) or die(mysql_error());
+        
+        //select C.Name 
+        //from Cinema C, Reservation R, MovieShowing S 
+        //where C.ID = S.CinemaID and R.MovieShowingID = S.ID and R.ID = $thisReservationID
+            
+   
+        
+        //<select name="movie_select_menu">
+        //<option value="all">all</option>
+        echo"<select name = 'member_menu'>";
+        echo"<option value = 'Account'> Account </option>";
+        
+        while($row = mysql_fetch_array($memberResult)){    
+            echo "<option value = '{$row['Name']}' >{$row['Name']}</option>";
+        } 
+        
+        echo"</select>";
+        echo "<br>";
+        echo"<input type = 'submit' name = 'Submit Form'> <br> <br>  ";
+    ?>
+        
+    
+</form>
+ 
+<form action = 'index.php'>
+    <?php        
+        echo"<input type ='submit' value = 'Get back to login hooker' >";    
+    ?>              
+</form> 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
