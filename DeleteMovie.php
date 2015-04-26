@@ -79,27 +79,22 @@ Delete a Movie
 
 		if(mysql_num_rows($movieQueryResult))
 		{
-			if(mysql_fetch_array($movieQueryResult))
-			{		
-				echo "<form action='DeleteMovie.php' method='post'>";
-				echo "Delete Movie: ";
-				echo "<select name='movieToDelete'>";
+			echo "<form action='DeleteMovie.php' method='post'>";
+			echo "Delete Movie: ";
+			echo "<select name='movieToDelete'>";
 				
-				$selectMovieResult = mysql_query("select * from Movie;") or die(mysql_error());	
-				while($movieRow = mysql_fetch_array($selectMovieResult))
-				{
-						$movieID = $movieRow['ID'];
-						$movieTitle = $movieRow['Title'];
-						
-						echo "<option value='$movieID'>($movieID) $movieTitle</option>";
-				}
+			while($movieRow = mysql_fetch_array($movieQueryResult))
+			{
+				$movieID = $movieRow['ID'];
+				$movieTitle = $movieRow['Title'];
 				
-				echo "</select>";
-				echo "<br><br>";
-				echo "<input type='submit' value='Delete Movie'>";
-				echo "</form>";
-					
-			}			
+				echo "<option value='$movieID'>($movieID) $movieTitle</option>";
+			}
+			
+			echo "</select>";
+			echo "<br><br>";
+			echo "<input type='submit' value='Delete Movie'>";
+			echo "</form>";		
 		}
 		
 		else

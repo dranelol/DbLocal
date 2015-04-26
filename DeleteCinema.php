@@ -81,27 +81,23 @@ Delete a Cinema
 
 		if(mysql_num_rows($cinemasExistResult))
 		{
-			if(mysql_fetch_array($cinemasExistResult))
-			{		
-				echo "<form action='DeleteCinema.php' method='post'>";
-				echo "Delete Cinema: ";
-				echo "<select name='cinemaToDelete'>";
-				
-				$selectCinemaResult = mysql_query("select * from Cinema;") or die(mysql_error());	
-				while($cinemaRow = mysql_fetch_array($selectCinemaResult))
-				{
-						$cinemaID = $cinemaRow['ID'];
-						$cinemaName = $cinemaRow['Name'];
-						$cinemaAddress = $cinemaRow['Address'];
-						
-						echo "<option value='$cinemaID'>($cinemaID) $cinemaName, $cinemaAddress</option>";
-				}
-				
-				echo "</select>";
-				echo "<br><br>";
-				echo "<input type='submit' value='Delete Cinema'>";
-				echo "</form>";
+			echo "<form action='DeleteCinema.php' method='post'>";
+			echo "Delete Cinema: ";
+			echo "<select name='cinemaToDelete'>";
+			
+			while($cinemaRow = mysql_fetch_array($cinemasExistResult))
+			{
+					$cinemaID = $cinemaRow['ID'];
+					$cinemaName = $cinemaRow['Name'];
+					$cinemaAddress = $cinemaRow['Address'];
+					
+					echo "<option value='$cinemaID'>($cinemaID) $cinemaName, $cinemaAddress</option>";
 			}
+			
+			echo "</select>";
+			echo "<br><br>";
+			echo "<input type='submit' value='Delete Cinema'>";
+			echo "</form>";
 		}
 		
 		else
