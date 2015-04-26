@@ -65,19 +65,19 @@ Add Membership
 	
 	echo "<form action='ConfirmAddMembership.php' method = 'post'>
 			  Name: 
-			  <input type='text' name='name' placeholder='John Doe'>
+			  <input type='text' name='name' placeholder='John Doe' required >
 			  <br>
 			  Address: 
-			  <input type='text' name='address' placeholder='123 North Easy Street'>
+			  <input type='text' name='address' placeholder='123 North Easy Street' required>
 			  <br>
 			  Phone Number: 
-			  <input type='text' name='phoneNumber' placeholder='123-456-7890'>
+			  <input type='tel' name='phoneNumber' placeholder='123-456-7890' required>
 			  <br>
 			   Email:
-			  <input type='text' name='email' placeholder='john@gmail.com'>
+			  <input type='email' name='email' placeholder='john@gmail.com' required>
 			  <br>
 			   Age:
-			  <input type='text' name='age' placeholder='32'>
+			  <input type='number' name='age' placeholder='32' required>
 			  <br>";
 			   
 			  
