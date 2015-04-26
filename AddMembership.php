@@ -85,7 +85,7 @@ Add Membership
 	echo "Input the length, in months, for this membership <br>";
 	
 	echo "Length of membership: 
-			  <input type='text' name='length' placeholder='5'>
+			  <input type='number' name='length' placeholder='5' required>
 			  <br>
 			<input type='submit' value='Add Membership'>
 	</form>";
