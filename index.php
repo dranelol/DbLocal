@@ -89,6 +89,8 @@ Index for Janksby Database
 	
 	if($_SESSION["userType"] == "admin")
 	{
+		echo "<b> Manage Database </b>";
+		echo "<br>";		
 		echo "<a href ='ReloadDatabase.php'>Reset database with test data</a>";
 		echo "<br>";
 		echo "<a href ='ResetReservations.php'>Reset all Reservation and Movie Showing data</a>";
@@ -107,6 +109,30 @@ Index for Janksby Database
 		echo "<br>";
 		echo "<a href ='AddTheater.php'>Add a Theater</a>";
 		echo "<br>";
+		echo "<a href ='DeleteTheater.php'>Delete a Theater</a>";
+		echo "<br>";		
+		
+		echo "<br><b> Manage Movies </b>";
+		echo "<br>";
+		echo "<a href ='AddMovie.php'>Add a Movie</a>";
+		echo "<br>";
+		echo "<a href ='DeleteMovie.php'>Delete a Movie</a>";
+		echo "<br>";
+		
+		echo "<br><b> Manage Members </b>";
+		echo "<br>";
+		echo "<a href ='DeleteMembership.php'>Delete a Membership</a>";
+		echo "<br>";		
+		echo "<a href ='DeleteMember.php'>Delete a Member</a>";
+		echo "<br>";
+
+		echo "<br><b> Manage Events </b>";
+		echo "<br>";
+		echo "<a href ='DeleteReservation.php'>Delete a Reservation</a>";
+		echo "<br>";
+		echo "<a href ='DeleteMovieShowing.php'>Delete a Movie Showing</a>";
+		echo "<br>";		
+			
 	}
 	
 	if($_SESSION["userType"] == "guest")
