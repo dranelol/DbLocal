@@ -90,6 +90,8 @@ Index for Janksby Database
 	{
 		echo "<a href ='MovieListings.php'>Movie Listings</a>";
 		echo "<br>";
+		echo "<a href ='CancelReservation.php'>Cancel Reservation</a>";
+		echo "<br>";
 		echo "<a href ='AddMemberToAccount.php'>Add a Member to your Membership</a>";
 		echo "<br>";
 		echo "<a href ='RenewMembership.php'>Renew Membership</a>";
