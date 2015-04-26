@@ -114,8 +114,8 @@ Reservations for Movie Showing
 		}
 		
 		echo "</select>";
-		echo "<br>";
-		
+		echo "<br><br>";
+
 		$seatQuery = "select S.SeatingChart, T.SeatingRows, T.SeatingColumns
 				from MovieShowing S, Theater T 
 				where S.ID = $showingID
@@ -132,7 +132,8 @@ Reservations for Movie Showing
 			//echo $seatingRows;
 			//echo $seatingColumns;
 			
-			echo "<table border = \"1\" cellpadding = \"10\" align = \"left\">";
+			
+			echo "<div><table border = \"1\" cellpadding = \"10\" >"; // align = \"left\">";
 			
 			$rowSelected = '';
 			$columnSelected = '';
@@ -187,11 +188,11 @@ Reservations for Movie Showing
 				echo "</tr>";	
 			}
 			
-			echo "</table>";
-			
-			
-			echo '<br><br><a href ="index.php">Go to Index</a>';
+			echo "</table></div>";
 		}
+		
+				
+		echo '<br><a href ="index.php">Go to Index</a>';
 	}
 	
 	else

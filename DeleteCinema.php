@@ -66,11 +66,12 @@ Delete a Cinema
 		$deleteCinemaQuery = "delete from Cinema where ID=$cinemaID;";								
 		if(mysql_query($deleteCinemaQuery) or die(mysql_error()))
 		{
-			echo "Cinema successfully deleted!";
+			echo "Cinema $cinemaID successfully deleted!";
 		}
 		else
 		{
-			echo "Cinema not found!";
+			echo "Cinema could not be deleted.";
+			echo '<br><a href ="DeleteCinema.php">Go Back</a>';				
 		}
 		
 	}
@@ -78,14 +79,13 @@ Delete a Cinema
 	{
 		$cinemasExistResult = mysql_query("select * from Cinema;") or die(mysql_error());	
 
-		if(mysql_fetch_array($cinemasExistResult))
-		{		
+		if(mysql_num_rows($cinemasExistResult))
+		{
 			echo "<form action='DeleteCinema.php' method='post'>";
 			echo "Delete Cinema: ";
 			echo "<select name='cinemaToDelete'>";
 			
-			$selectCinemaResult = mysql_query("select * from Cinema;") or die(mysql_error());	
-			while($cinemaRow = mysql_fetch_array($selectCinemaResult))
+			while($cinemaRow = mysql_fetch_array($cinemasExistResult))
 			{
 					$cinemaID = $cinemaRow['ID'];
 					$cinemaName = $cinemaRow['Name'];
@@ -94,12 +94,12 @@ Delete a Cinema
 					echo "<option value='$cinemaID'>($cinemaID) $cinemaName, $cinemaAddress</option>";
 			}
 			
-				echo "</select>";
-				echo "<br><br>";
-				echo "<input type='submit' value='Delete Cinema'>";
-				echo "</form>";
-				
+			echo "</select>";
+			echo "<br><br>";
+			echo "<input type='submit' value='Delete Cinema'>";
+			echo "</form>";
 		}
+		
 		else
 		{
 			echo "No existing cinemas.<br>";
