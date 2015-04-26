@@ -25,6 +25,35 @@ Schedule Movie Showing
 <body>
 
 <?php 
+
+	$sessionUser = $_SESSION['userType'];
+	
+	// restrict access only to certain userTypes
+	if($sessionUser != 'employee' && $sessionUser != "admin")
+	{
+		echo 'You do not have permission to access this page.';
+		echo '<br><br>';
+		echo '<a href ="LoginPage.php">Go Log In</a>';
+		
+		die();
+	}
+	
+	echo "Logged in as: $sessionUser"; 
+	if($sessionUser == "member")
+	{
+		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
+	}
+	
+	$date = $_SESSION["today"];
+	echo "<br>";
+	echo "Today's date: $date";
+	echo "<br>";
+	
+?> 
+<br>
+<br>
+
+<?php 
 	if(isset($_POST['complex_select_menu']) && isset($_POST['movie_select_menu']) && isset($_POST['theaterNumber']) && isset($_POST['date_select_menu']) && isset($_POST['time_select_menu']))
 	{
 		$cinemaID = $_POST['complex_select_menu'];

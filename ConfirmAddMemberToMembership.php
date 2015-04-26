@@ -43,6 +43,10 @@ Add Member to Membership Confirmation
 	
 
 	echo "Logged in as: $sessionUser"; 
+	if($sessionUser == "member")
+	{
+		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
+	}
 	
 	$date = $_SESSION["today"];
 	echo "<br>";

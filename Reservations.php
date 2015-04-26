@@ -36,6 +36,10 @@ Reservations for Movie Showing
 	}
 	
 	echo "Logged in as: $sessionUser"; 
+	if($sessionUser == "member")
+	{
+		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
+	}
 	
 	$date = $_SESSION["today"];
 	echo "<br>";
@@ -154,7 +158,7 @@ Reservations for Movie Showing
 						echo "<input type ='hidden' value = $showingID name ='showingID'>";
 						echo "<input type ='hidden' value = $rowSelected name ='row'>";
 						echo "<input type ='hidden' value = $columnSelected name ='column'>";
-						echo "<input type ='hidden' name = 'memberInfo' class = 'memberInfoSelect'>";
+						echo "<input type ='hidexitden' name = 'memberInfo' class = 'memberInfoSelect'>";
 						//echo "<input type ='hidden' value = '$memberID' name ='memberID'>";
 						//echo "<input type ='hidden' value = '$memberName' name ='memberName'>";
 						/*

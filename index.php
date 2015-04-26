@@ -56,6 +56,10 @@ Index for Janksby Database
 	$sessionUser = $_SESSION['userType'];
 
 	echo "Logged in as: $sessionUser"; 
+	if($sessionUser == "member")
+	{
+		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
+	}
 	//$date = explode("/", $_SESSION["today"]);
 	$date = $_SESSION["today"];
 	echo "<br>";
@@ -69,7 +73,6 @@ Index for Janksby Database
 
 	if($_SESSION["userType"] == "member")
 	{
-		echo "Membership ID: " . $_SESSION['memberID'] . "<br>";
 		echo "<a href ='MovieListings.php'>Movie Listings</a>";
 		echo "<br>";
 		echo "<a href ='AddMemberToAccount.php'>Add a Member to your Membership</a>";
