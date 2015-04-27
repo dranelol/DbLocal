@@ -50,7 +50,7 @@
 
 <form action = 'DatView.php' method = 'post'>
     <?php  
-        $memberQuery = "SELECT * FROM Member where MemberAcctNum = 1";
+        $memberQuery = "SELECT * FROM Member where MemberAcctNum = {$_SESSION['memberID']}";
         $memberResult = mysql_query($memberQuery) or die(mysql_error());
         
         //select C.Name 
@@ -70,7 +70,8 @@
         
         echo"</select>";
         echo "<br>";
-        echo"<input type = 'submit' name = 'Submit Form'> <br> <br>  ";
+		$selected = $row['Name'];
+        echo"<input type = 'submit' name = '$selected' <br> <br>  ";
     ?>
         
     

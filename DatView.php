@@ -48,6 +48,8 @@
 ?> 
 
 <?php
+	$selectedView = $_POST['selected'];
+	echo "$selectedView";
         $seentItQuery = "select B.Name as User, C.Name, S.MovieID, M.Title, S.ShowTime 
         from Member B, Movie M, Cinema C, Reservation R, MovieShowing S
         where   C.ID = S.CinemaID 
