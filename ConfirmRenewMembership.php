@@ -99,7 +99,10 @@ Confirm Renew Membership
 			
 			echo "Membership updated!";
 			
-			echo '<br><a href ="index.php">Go to Index</a>';
+			echo "<br>";
+			echo "<form action ='index.php'>";
+			echo "<input type ='submit' value = 'Go back to index' >";  
+			echo "</form>";   
 		}
 		
 			
@@ -109,7 +112,10 @@ Confirm Renew Membership
 	{
 		
 		echo "Got here illegally!";
-		echo '<br><a href ="index.php">Go to Index</a>';
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
 	}
 	
 			  

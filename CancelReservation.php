@@ -104,7 +104,10 @@ Cancel Reservation
 		else
 		{
 			echo "No reservations for this account have been made!";
-			echo '<br><a href ="index.php">Go to Index</a>';
+			echo "<br>";
+			echo "<form action ='index.php'>";
+			echo "<input type ='submit' value = 'Go back to index' >";  
+			echo "</form>";   
 			die();
 		}
 	}
@@ -112,13 +115,19 @@ Cancel Reservation
 	else
 	{
 		echo "Null result!";
-		echo '<br><a href ="index.php">Go to Index</a>';
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
 		die();
 	}
 	
 	
 			  
-	echo '<br><a href ="index.php">Go to Index</a>';	  
+	echo "<br>";
+	echo "<form action ='index.php'>";
+	echo "<input type ='submit' value = 'Go back to index' >";  
+	echo "</form>";     
 ?>
 
 </body>

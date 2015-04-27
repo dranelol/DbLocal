@@ -96,7 +96,10 @@ if(isset($_POST['title']) && isset($_POST['stars']) && isset($_POST['description
 	
 	}
 	
-	echo '<br><a href ="index.php">Go to Index</a>';	  
+	echo "<br>";
+	echo "<form action ='index.php'>";
+	echo "<input type ='submit' value = 'Go back to index' >";  
+	echo "</form>";   
 
 ?>
 

@@ -60,8 +60,8 @@
     }
     else
     {
-        //$memberQuery = "SELECT * FROM Member where MemberAcctNum = '{$_SESSION['memberID']}'";
-        //$memberResult = mysql_query($memberQuery) or die(mysql_error());
+        $memberQuery = "SELECT * FROM Member where MemberAcctNum = '{$_SESSION['memberID']}'";
+        $memberResult = mysql_query($memberQuery) or die(mysql_error());
         
         //select C.Name 
         //from Cinema C, Reservation R, MovieShowing S 
@@ -85,11 +85,13 @@
     
 </form>
  
+ 
 <form action = 'index.php'>
     <?php        
         echo"<input type ='submit' value = 'Go back to index' >";    
     ?>        
 </form> 
+
 </body>
 </html>
 

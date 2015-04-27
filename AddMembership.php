@@ -90,12 +90,10 @@ Add Membership
 			<input type='submit' value='Add Membership'>
 	</form>";
 	
+	echo "<br>";
+	echo "<form action ='index.php'>";
+	echo "<input type ='submit' value = 'Go back to index' >";  
+	echo "</form>";   
 ?>
-
-<form action = 'index.php'>
-    <?php        
-        echo"<input type ='submit' value = 'Go back to index' >";    
-    ?>       
-
 </body>
 </html>

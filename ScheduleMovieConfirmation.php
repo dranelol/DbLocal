@@ -87,7 +87,10 @@ Schedule Movie Showing
 				mysql_query($insertMovieShowing) or die(mysql_error());
 				
 				echo "<br>Show scheduled for $movieName at $time, $date in theater $theaterNumber, $cinemaName.<br>";
-				echo "<a href ='index.php'>Go back to index</a>";
+				echo "<br>";
+				echo "<form action ='index.php'>";
+				echo "<input type ='submit' value = 'Go back to index' >";  
+				echo "</form>";   
 			}
 		}
 		
@@ -101,8 +104,10 @@ Schedule Movie Showing
 	
 	else
 	{
-		echo '<br>gtfo';
-		echo '<br><a href ="ScheduleMovie.php">Go to Schedule Movie Showings page</a>';
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
 	}
 ?> 
  

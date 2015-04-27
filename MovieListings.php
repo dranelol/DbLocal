@@ -147,11 +147,12 @@ Select a Day
 <br>
 
 <input type = "submit" value = "Show Listings">
-<br><br><a href ="index.php">Go to Index</a>
-</form>
+<br><br>
 <form action = 'index.php'>
     <?php        
         echo"<input type ='submit' value = 'Go back to index' >";    
-    ?>  
+    ?>        
+</form> 
+</form>
 </body>
 </html>

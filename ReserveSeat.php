@@ -131,7 +131,10 @@ Reserve a Seat
 		else
 		{
 			echo '<br>Too many reservations for this showing have been made for your account!';
-			echo '<br><a href ="index.php">Go to Index</a>';
+			echo "<br>";
+			echo "<form action ='index.php'>";
+			echo "<input type ='submit' value = 'Go back to index' >";  
+			echo "</form>";   
 			die();
 		}
 		
@@ -141,7 +144,10 @@ Reserve a Seat
 	else
 	{
 		echo '<br>Got here illegally!';
-		echo '<br><a href ="index.php">Go to Index</a>';
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
 	}
 ?>
 
