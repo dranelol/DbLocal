@@ -98,9 +98,9 @@ Renew Membership
 		
 		echo "<br>";
 		
-		echo "Set new end date for membership (start date will be today, if renewing): <br>";
+		echo "Add months to membership (start date will be today, if renewing): <br>";
 		
-		echo "<input type='date' name='newEndDate' required>
+		echo "<input type='number' name='length' required>
 				 <br>
 			  	 <input type='submit' value='Renew Membership'>
 			 	 </form>";

@@ -86,7 +86,7 @@ Add Member to Membership
 			
 	
 			
-	
+	echo '<br><a href ="index.php">Go to Index</a>';
 	
 ?>
 

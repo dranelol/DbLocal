@@ -111,10 +111,25 @@ Select a Movie
 <br>
 <br>
 
-
-
 Select a Day
 <select name="day_select_menu">
+<?php
+
+	$daysQuery = "select distinct ShowDate from MovieShowing";
+	$daysResult = mysql_query($daysQuery) or die(mysql_error());
+	
+	echo "<option value = 'All'>All days</option>";
+	
+	while($row = mysql_fetch_array($daysResult))
+	{
+		$day = $row['ShowDate'];
+		$dayFormatted = explode("-", $day);
+		$dayFormatted = date("m/d/Y", mktime(0,0,0, $dayFormatted[1], $dayFormatted[2], $dayFormatted[0]));
+		
+		echo "<option value='$day'>$dayFormatted</option>";
+	}
+	
+/*
 	<option value="0">Today</option>
 	<option value="1">Today + 1</option>
 	<option value="2">Today + 2</option>
@@ -123,12 +138,16 @@ Select a Day
 	<option value="5">Today + 5</option>
 	<option value="6">Today + 6</option>
 	<option value="all">All</option>
+*/
+
+?>
+
 </select>
 <br>
 <br>
 
 <input type = "submit" value = "Show Listings">
-
+<br><br><a href ="index.php">Go to Index</a>
 </form>
 </body>
 </html>

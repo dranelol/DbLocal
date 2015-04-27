@@ -59,16 +59,30 @@ Confirm Renew Membership
 
 <?php 
 
-	if(isset($_POST['newEndDate']) && isset($_POST['startDate']))
+	if(isset($_POST['length']) && isset($_POST['startDate']))
 	{
-		$newEndDate = $_POST['newEndDate'];
+		$length = $_POST['length'];
+		
+		if($length <1)
+		{
+			echo "Need to specify a number of months greater than 0!";
+			echo '<br><a href ="index.php">Go to Index</a>';
+			die();
+		}
+		
 		
 		$startDate = $_POST['startDate'];
+		
+		$startDateArr = explode("-", $startDate);
+		$newMonth = $startDateArr[1] + $length;
+		
+		$newEndDate = date("Y-m-d", strtotime($startDateArr[0] . '-' . $newMonth . '-' . $startDateArr[2]));
+		
 		$membershipID = $_SESSION['memberID'];
 		
 		//echo $startDate . "<br>" . $newEndDate;
 		
-		
+		//die();
 		if($newEndDate < $startDate)
 		{
 			echo "You specified an end date that ends prior to the start date! (today, if renewing membership)";

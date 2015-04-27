@@ -59,11 +59,17 @@ Reset database
 
 <?php 
 
-	$reloadQuery = "source mainDB.sql";
-	$reloadResult = mysql_query($reloadQuery) or die(mysql_error());
-	
+	//$reloadQuery = implode("\n", file('mainDB.sql')); 
+	//$reloadResult = mysql_query($reloadQuery) or die(mysql_error());
+	exec("mysql -u groupH -p cs4601_groupH --password=MaximumJank < mainDB.sql");
 	echo "Database reloaded successfully with test data!";
+	echo "<br><br>";
+	echo "You should also reset the reservation and movie showing data to default values.";
 	
+	echo '<br><a href ="ResetReservations.php">Reset Reservation and Movie Showing Data</a>';
+	//$user="groupH";
+    //$password="MaximumJank";
+     //$database="cs4601_groupH";
 	
 	echo '<br><a href ="index.php">Go to Index</a>';
 	

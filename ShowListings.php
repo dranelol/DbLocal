@@ -56,16 +56,18 @@ if(isset($_POST["complex_select_menu"])
     && isset($_POST["day_select_menu"]))
 {
 	$complex = $_POST["complex_select_menu"];
+	
+	//echo $_POST['allDays'];
 	$movie = $_POST["movie_select_menu"];
 	$daysPlus = $_POST["day_select_menu"];
-	$dayToCheck = "";
+	
+	$dayToCheck = $daysPlus;
+	
 	if($daysPlus != "all")
 	{
-		$todaysDate = explode("/", $_SESSION["today"]);
-		
-		$dayToCheck = date("Y-m-d", mktime(0,0,0, $todaysDate[0], $todaysDate[1] + $daysPlus, $todaysDate[2]));
-		
-		echo "<br>day selected: $dayToCheck";
+		$dayFormatted = explode("-", $daysPlus);
+		$dayFormatted = date("m/d/Y", mktime(0,0,0, $dayFormatted[1], $dayFormatted[2], $dayFormatted[0]));
+		echo "<br>day selected: $dayFormatted";
 	}
 	
 	else
@@ -116,7 +118,7 @@ if(isset($_POST["complex_select_menu"])
 	{
 		if(mysql_num_rows($listingsResult))
 		{
-			echo "<table border = \"1\" cellpadding = \"10\" align = \"left\">";
+			echo "<table border = \"1\" cellpadding = \"10\">";
 			echo "<tr> 
 					  <th>Cinema Name</th> 
 					  <th>Movie Name</th> 
@@ -158,7 +160,7 @@ if(isset($_POST["complex_select_menu"])
 	
 	
 	
-	
+	echo '<br><a href ="index.php">Go to Index</a>';
 }
 
 else
