@@ -89,6 +89,9 @@ Add Member to Membership
 	echo '<br><a href ="index.php">Go to Index</a>';
 	
 ?>
-
+<form action = 'index.php'>
+    <?php        
+        echo"<input type ='submit' value = 'Go back to index' >";    
+    ?>  
 </body>
 </html>
