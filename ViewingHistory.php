@@ -50,18 +50,24 @@
 
 <form action = 'DatView.php' method = 'post'>
     <?php  
-        $memberQuery = "SELECT * FROM Member where MemberAcctNum = {$_SESSION['memberID']}";
-        $memberResult = mysql_query($memberQuery) or die(mysql_error());
+    if($_SESSION['userType'] == "guest"){    
+        echo("lol ur a guest... Guess do not have viewing history?");
+    }
+    else if($_SESSION['userType'] == "employee"){
+        echo("lol ur an employee.. Employees dont have viewing history?");
+    }
+    else
+    {
+        //$memberQuery = "SELECT * FROM Member where MemberAcctNum = '{$_SESSION['memberID']}'";
+        //$memberResult = mysql_query($memberQuery) or die(mysql_error());
         
         //select C.Name 
         //from Cinema C, Reservation R, MovieShowing S 
-        //where C.ID = S.CinemaID and R.MovieShowingID = S.ID and R.ID = $thisReservationID
-            
-   
-        
+        //where C.ID = S.CinemaID and R.MovieShowingID = S.ID and R.ID = $thisReservationID 
         //<select name="movie_select_menu">
         //<option value="all">all</option>
-        echo"<select name = 'member_menu'>";
+        //
+        echo"<select name = 'viewSelection'>";
         echo"<option value = 'Account'> Account </option>";
         
         while($row = mysql_fetch_array($memberResult)){    
@@ -69,9 +75,9 @@
         } 
         
         echo"</select>";
-        echo "<br>";
-		$selected = $row['Name'];
-        echo"<input type = 'submit' name = '$selected' <br> <br>  ";
+       
+        echo"<input type = 'submit' name = 'Submit Form'> <br> <br>  ";
+    }
     ?>
         
     
@@ -79,8 +85,8 @@
  
 <form action = 'index.php'>
     <?php        
-        echo"<input type ='submit' value = 'Get back to login hooker' >";    
-    ?>              
+        echo"<input type ='submit' value = 'Go back to index' >";    
+    ?>        
 </form> 
 </body>
 </html>

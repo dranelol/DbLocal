@@ -194,6 +194,9 @@ Schedule Movie Showing Confirmation
 	echo "</form>";
 	
 ?> 
-
+<form action = 'index.php'>
+    <?php        
+        echo"<input type ='submit' value = 'Go back to index' >";    
+    ?>  
 </body>
 </html>

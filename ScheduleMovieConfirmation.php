@@ -76,6 +76,6 @@ Schedule Movie Showing
 		echo '<br><a href ="ScheduleMovie.php">Go to Schedule Movie Showings page</a>';
 	}
 ?> 
-
+ 
 </body>
 </html>
