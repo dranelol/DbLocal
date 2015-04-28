@@ -36,6 +36,10 @@ Reservations for Movie Showing
 	}
 	
 	echo "Logged in as: $sessionUser"; 
+	if($sessionUser == "member")
+	{
+		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
+	}
 	
 	$date = $_SESSION["today"];
 	echo "<br>";
@@ -110,8 +114,8 @@ Reservations for Movie Showing
 		}
 		
 		echo "</select>";
-		echo "<br>";
-		
+		echo "<br><br>";
+
 		$seatQuery = "select S.SeatingChart, T.SeatingRows, T.SeatingColumns
 				from MovieShowing S, Theater T 
 				where S.ID = $showingID
@@ -128,7 +132,8 @@ Reservations for Movie Showing
 			//echo $seatingRows;
 			//echo $seatingColumns;
 			
-			echo "<table border = \"1\" cellpadding = \"10\" align = \"left\">";
+			
+			echo "<div><table border = \"1\" cellpadding = \"10\" >"; // align = \"left\">";
 			
 			$rowSelected = '';
 			$columnSelected = '';
@@ -183,17 +188,23 @@ Reservations for Movie Showing
 				echo "</tr>";	
 			}
 			
-			echo "</table>";
-			
-			
-			
+			echo "</table></div>";
 		}
+		
+				
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
 	}
 	
 	else
 	{
 		echo '<br>Got here illegally!';
-		echo '<br><a href ="index.php">Go to Index</a>';
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
 	}
 
 ?>

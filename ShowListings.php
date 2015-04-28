@@ -36,6 +36,10 @@ Show Listings
 	}
 	
 	echo "Logged in as: $sessionUser"; 
+	if($sessionUser == "member")
+	{
+		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
+	}
 	
 	$date = $_SESSION["today"];
 	echo "<br>";
@@ -52,115 +56,239 @@ if(isset($_POST["complex_select_menu"])
     && isset($_POST["day_select_menu"]))
 {
 	$complex = $_POST["complex_select_menu"];
+	
+	//echo $_POST['allDays'];
 	$movie = $_POST["movie_select_menu"];
 	$daysPlus = $_POST["day_select_menu"];
-	$dayToCheck = "";
-	if($daysPlus != "all")
+	
+	$dayToCheck = $daysPlus;
+	
+	if($daysPlus != "All")
 	{
-		$todaysDate = explode("/", $_SESSION["today"]);
+		$dayFormatted = explode("-", $daysPlus);
+		$dayFormatted = date("m/d/Y", mktime(0,0,0, $dayFormatted[1], $dayFormatted[2], $dayFormatted[0]));
 		
-		$dayToCheck = date("Y-m-d", mktime(0,0,0, $todaysDate[0], $todaysDate[1] + $daysPlus, $todaysDate[2]));
-		
-		echo "<br>day selected: $dayToCheck";
+		echo "<br>Day selected: $dayFormatted";
 	}
 	
 	else
 	{
-		echo "<br>day selected: $daysPlus";
+		echo "<br>Day selected: $daysPlus";
 	}
 	
-	echo "<br>complex selected: $complex";
-	echo "<br>movie selected: $movie";
+	echo "<br>Complex selected: $complex";
+	echo "<br>Movie selected: $movie";
 	
-	echo "<br><br>";
-	$listingsQueryBase = "select S.ID, C.Name, M.Title, S.ShowDate, S.ShowTime
-									from MovieShowing S, Cinema C, Movie M 
-									where C.ID = S.CinemaID
-									and S.MovieId = M.ID";
-	// without an addition, this will work for all cinemas, all movies, all days
-	$listingsQuery = $listingsQueryBase;
-	
-	// if we selected a specific day
-	if($daysPlus != "all")
+	if($complex == "all")
 	{
-		$listingsQuery = $listingsQuery .
-			" and S.ShowDate = '{$dayToCheck}'";
-	}
-	
-	// if we selected a specific complex
-	if($complex != "all")
-	{
-		$listingsQuery = $listingsQuery .
-			" and C.Name = '{$complex}'";
-	}
-	
-	// if we selected a specific movie
-	if($movie != "all")
-	{
-		$listingsQuery = $listingsQuery .
-			" and M.Title = '{$movie}'";
-	}
-	 
-	$listingsQuery = $listingsQuery . " order by C.name, M.Title, S.ShowDate, S.ShowTime";
+		echo "<br><br>";
+		$listingsQueryBase = "select S.ID, C.Name, M.Title, S.ShowDate, S.ShowTime, C.Address
+										from MovieShowing S, Cinema C, Movie M 
+										where C.ID = S.CinemaID
+										and S.MovieId = M.ID";
+		// without an addition, this will work for all cinemas, all movies, all days
+		$listingsQuery = $listingsQueryBase;
 		
-		
-	//echo "<br><br> $listingsQuery";
-		
-	$listingsResult = mysql_query($listingsQuery);// or die(mysql_error());
-	
-	if($listingsResult)
-	{
-		if(mysql_num_rows($listingsResult))
+		// if we selected a specific day
+		if($daysPlus != "All")
 		{
-			echo "<table border = \"1\" cellpadding = \"10\" align = \"left\">";
-			echo "<tr> 
-					  <th>Cinema Name</th> 
-					  <th>Movie Name</th> 
-					  <th>Show Date</th>
-					  <th>Show Time</th
-					  </tr>";
-					  
-			while($row = mysql_fetch_array($listingsResult))
+			$listingsQuery = $listingsQuery .
+				" and S.ShowDate = '{$dayToCheck}'";
+		}
+		
+		// if we selected a specific movie
+		if($movie != "all")
+		{
+			$listingsQuery = $listingsQuery .
+				" and M.Title = '{$movie}'";
+		}
+		 
+		$sublistingsQueryBase = "$listingsQuery";
+		
+		$listingsQuery = $listingsQuery . " order by C.Name, M.Title, S.ShowDate, S.ShowTime";
+			
+		//echo "<br><br> $listingsQuery";
+			
+		$listingsResult = mysql_query($listingsQuery);// or die(mysql_error());
+		
+		$cinemasQuery = "select * from Cinema";
+		$cinemaResult = mysql_query($cinemasQuery) or die(mysql_error());
+		
+		
+		
+		if($listingsResult)
+		{
+			if(mysql_num_rows($listingsResult))
 			{
-				echo "<tr>
-						  <td>" . $row['Name']. "</td>
-						  <td>" . $row['Title']. "</td>
-						  <td>" . $row['ShowDate']. "</td>
-						  <td>" . $row['ShowTime']. "</td>
-						  <td>
-						  <form action = 'Reservations.php' method = 'post'>
-						  <input type = 'hidden' name = 'ShowingID' value ='" . $row['ID'] . "'>
-						  <input type='submit' value='Reserve Seats'>
-						  </form>
-						  </td>
-						  </tr>";
+				while($cinemaRow = mysql_fetch_array($cinemaResult))
+				{
+					$cinemaName = $cinemaRow['Name'];
+					$cinemaAddress = $cinemaRow['Address'];
+					$cinemaID = $cinemaRow['ID'];
+					
+					
+					
+					echo "<h2>$cinemaName</h2>";
+					echo "<h3>$cinemaAddress</h3>";
+					
+					// check to see if this cinema has any listings
+					// if it does, show its listings, if not, say no listings for this cinema
+					
+					$checkListingsQuery = "select * from MovieShowing M where M.CinemaID = '$cinemaID'";
+					$checkListingsResult = mysql_query($checkListingsQuery) or die(mysql_error());
+					
+					if(mysql_num_rows($checkListingsResult) > 0)
+					{
+						echo "<table border = \"10\" cellpadding = \"10\">";
+						echo "<tr> 
+								  <th>Cinema Name</th>
+								  <th>Movie Name</th> 
+								  <th>Show Date</th>
+								  <th>Show Time</th
+								  </tr>";
+								  
+						
+						
+						$sublistingsQuery = $sublistingsQueryBase . " and C.ID = '{$cinemaID}'" . " order by M.Title, S.ShowDate, S.ShowTime";
+						
+						$sublistingsResult = mysql_query($sublistingsQuery) or die (mysql_error());
+						
+						while($row = mysql_fetch_array($sublistingsResult))
+						{
+							echo "<tr>
+									  <td>" . $row['Name']. "</td>
+									  <td>" . $row['Title']. "</td>
+									  <td>" . $row['ShowDate']. "</td>
+									  <td>" . $row['ShowTime']. "</td>
+									  <td>
+									  <form action = 'Reservations.php' method = 'post'>
+									  <input type = 'hidden' name = 'ShowingID' value ='" . $row['ID'] . "'>
+									  <input type='submit' value='Reserve Seats'>
+									  </form>
+									  </td>
+									  </tr>";
+						}
+						
+						echo "</table>";
+					}
+					
+					else
+					{
+						echo "No listings for this cinema. <br>";
+					}
+				}
 			}
 			
-			echo "</table>";
+			else
+			{
+				echo "<br>No listings for that selection!";
+			}
+			
 		}
 		
 		else
 		{
-			echo "<br>No listings for that selection!";
+			echo "<br>Null result!";
 		}
-		
 	}
 	
 	else
 	{
-		echo "<br>Null result!";
+		echo "<br><br>";
+		$listingsQueryBase = "select S.ID, C.Name, M.Title, S.ShowDate, S.ShowTime, C.Address
+										from MovieShowing S, Cinema C, Movie M 
+										where C.ID = S.CinemaID
+										and S.MovieId = M.ID";
+		// without an addition, this will work for all cinemas, all movies, all days
+		$listingsQuery = $listingsQueryBase;
+		
+		// if we selected a specific day
+		if($daysPlus != "All")
+		{
+			$listingsQuery = $listingsQuery .
+				" and S.ShowDate = '{$dayToCheck}'";
+		}
+		
+		// if we selected a specific complex
+		if($complex != "all")
+		{
+			$listingsQuery = $listingsQuery .
+				" and C.Name = '{$complex}'";
+		}
+		
+		// if we selected a specific movie
+		if($movie != "all")
+		{
+			$listingsQuery = $listingsQuery .
+				" and M.Title = '{$movie}'";
+		}
+		 
+		$listingsQuery = $listingsQuery . " order by C.name, M.Title, S.ShowDate, S.ShowTime";
+			
+			
+		//echo "<br><br> $listingsQuery";
+			
+		$listingsResult = mysql_query($listingsQuery);// or die(mysql_error());
+		
+		
+		if($listingsResult)
+		{
+			if(mysql_num_rows($listingsResult))
+			{
+				echo "<table border = \"1\" cellpadding = \"10\">";
+				echo "<tr> 
+						  <th>Cinema Name</th>
+						  <th>Movie Name</th> 
+						  <th>Show Date</th>
+						  <th>Show Time</th
+						  </tr>";
+						  
+				while($row = mysql_fetch_array($listingsResult))
+				{
+					echo "<tr>
+							  <td>" . $row['Name']. "</td>
+							  <td>" . $row['Title']. "</td>
+							  <td>" . $row['ShowDate']. "</td>
+							  <td>" . $row['ShowTime']. "</td>
+							  <td>
+							  <form action = 'Reservations.php' method = 'post'>
+							  <input type = 'hidden' name = 'ShowingID' value ='" . $row['ID'] . "'>
+							  <input type='submit' value='Reserve Seats'>
+							  </form>
+							  </td>
+							  </tr>";
+				}
+				
+				echo "</table>";
+			}
+			
+			else
+			{
+				echo "<br>No listings for that selection!";
+			}
+			
+		}
+		
+		else
+		{
+			echo "<br>Null result!";
+		}
 	}
 	
 	
-	
-	
-	
+	echo "<br>";
+	echo "<form action ='index.php'>";
+	echo "<input type ='submit' value = 'Go back to index' >";  
+	echo "</form>";
 }
 
 else
 {
 	echo '<br>Got here illegally!';
-	echo '<br><a href ="index.php">Go to Index</a>';
+	echo "<br>";
+	echo "<form action ='index.php'>";
+	echo "<input type ='submit' value = 'Go back to index' >";  
+	echo "</form>";
 }
 
 ?>

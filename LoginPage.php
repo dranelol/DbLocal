@@ -36,7 +36,20 @@ Don't lie pls!
 <input type='submit' value='Employee Login'>
 </form>
 
+
+
 <br>
+
+
+<?php
+	echo "<br>";
+	echo "<form action ='index.php'>";
+	echo "<input type ='submit' value = 'Go back to index' >";  
+	echo "</form>";   
+
+?>
+
+
 
 </body>
 </html>

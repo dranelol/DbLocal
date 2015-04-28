@@ -31,7 +31,7 @@ HEADING
 	
 	// restrict access only to certain userTypes
 
-	/*
+	
 	if($sessionUser != "member")
 	{
 		echo 'Not logged in as a member!';
@@ -40,7 +40,7 @@ HEADING
 		
 		die();
 	}
-	*/
+	
 
 	echo "Logged in as: $sessionUser"; 
 	if($sessionUser == "member")
@@ -60,9 +60,33 @@ HEADING
 <?php 
 
 	// CODE STARTS HERE
+	if(isset($_POST['reservationToCancel']))
+	{
+		$reservationID = $_POST['reservationToCancel'];
+		
+		$deleteReservationQuery = "delete from Reservation where ID = '$reservationID'";
+		$deleteReservationResult = mysql_query($deleteReservationQuery) or die(mysql_error());
+		
+		echo "Successfully cancelled reservation!";
+		
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
+	}
+	
+	else
+	{
+		echo '<br>Got here illegally!';
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
+	}
+	
 	
 			  
-	echo '<br><a href ="index.php">Go to Index</a>';	  
+	  
 ?>
 
 </body>

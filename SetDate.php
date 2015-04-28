@@ -16,12 +16,12 @@
 <html>
 <head>
 <title> 
-Reset database
+Set Today's Date
 </title>
 </head>
 
 <h3>
-Reset database
+Set Today's Date
 </h3>
 <body>
 
@@ -59,25 +59,17 @@ Reset database
 
 <?php 
 
-	//$reloadQuery = implode("\n", file('mainDB.sql')); 
-	//$reloadResult = mysql_query($reloadQuery) or die(mysql_error());
-	exec("mysql -u groupH -p cs4601_groupH --password=MaximumJank < mainDB.sql");
-	echo "Database reloaded successfully with test data!";
-	echo "<br><br>";
-	echo "You should also reset the reservation and movie showing data to default values.";
-	
-	echo '<br><a href ="ResetReservations.php">Reset Reservation and Movie Showing Data</a>';
-	//$user="groupH";
-    //$password="MaximumJank";
-     //$database="cs4601_groupH";
-	
+	// CODE STARTS HERE
+	echo "<form action='index.php' method = 'post'>";
+	echo "<input type='date' name='today'>";
+	echo "<br>";
+	echo "<input type='submit' value='Set Date'>";
+	echo "</form>";
+			  
 	echo "<br>";
 	echo "<form action ='index.php'>";
 	echo "<input type ='submit' value = 'Go back to index' >";  
-	echo "</form>";   
-	
-			  
-			  
+	echo "</form>";     
 ?>
 
 </body>

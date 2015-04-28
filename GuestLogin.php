@@ -26,7 +26,10 @@ Guest Login
 	else
 	{
 		echo '<br>Got here illegally!';
-		echo '<br><a href ="LoginPage.php">Go to Login Page</a>';
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
 	}
 ?>
 

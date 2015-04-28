@@ -43,6 +43,10 @@ Add a Cinema
 	
 
 	echo "Logged in as: $sessionUser"; 
+	if($sessionUser == "member")
+	{
+		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
+	}
 	
 	$date = $_SESSION["today"];
 	echo "<br>";
@@ -76,9 +80,9 @@ Add a Cinema
 ?>
 
 <form action='AddCinema.php' method = 'post'>
-  Name: <input type="text" name="name" placeholder="Grand 16"><br>
-  Address: <input type="text" name="address" placeholder="123 North Easy Street"><br>
-  Phone Number: <input type="text" name="phoneNumber" placeholder="123-456-7890"><br>
+  Name: <input type="text" name="name" placeholder="Grand 16" required><br>
+  Address: <input type="text" name="address" placeholder="123 North Easy Street" required><br>
+  Phone Number: <input type="tel" name="phoneNumber" placeholder="123-456-7890" required><br>
   <input type="submit" value="Add Cinema">
 </form>
 
@@ -86,7 +90,9 @@ Add a Cinema
 
 	}
 	
-	echo '<br><a href ="index.php">Go to Index</a>';
+	echo "<form action ='index.php'>";
+	echo "<input type ='submit' value = 'Go back to index' >";  
+	echo "</form>";
 ?>
 
 </body>

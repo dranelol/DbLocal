@@ -25,6 +25,35 @@ Schedule Movie Showing
 <body>
 
 <?php 
+
+	$sessionUser = $_SESSION['userType'];
+	
+	// restrict access only to certain userTypes
+	if($sessionUser != 'employee' && $sessionUser != "admin")
+	{
+		echo 'You do not have permission to access this page.';
+		echo '<br><br>';
+		echo '<a href ="LoginPage.php">Go Log In</a>';
+		
+		die();
+	}
+	
+	echo "Logged in as: $sessionUser"; 
+	if($sessionUser == "member")
+	{
+		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
+	}
+	
+	$date = $_SESSION["today"];
+	echo "<br>";
+	echo "Today's date: $date";
+	echo "<br>";
+	
+?> 
+<br>
+<br>
+
+<?php 
 	if(isset($_POST['complex_select_menu']) && isset($_POST['movie_select_menu']) && isset($_POST['theaterNumber']) && isset($_POST['date_select_menu']) && isset($_POST['time_select_menu']))
 	{
 		$cinemaID = $_POST['complex_select_menu'];
@@ -58,7 +87,10 @@ Schedule Movie Showing
 				mysql_query($insertMovieShowing) or die(mysql_error());
 				
 				echo "<br>Show scheduled for $movieName at $time, $date in theater $theaterNumber, $cinemaName.<br>";
-				echo "<a href ='index.php'>Go back to index</a>";
+				echo "<br>";
+				echo "<form action ='index.php'>";
+				echo "<input type ='submit' value = 'Go back to index' >";  
+				echo "</form>";   
 			}
 		}
 		
@@ -72,8 +104,10 @@ Schedule Movie Showing
 	
 	else
 	{
-		echo '<br>gtfo';
-		echo '<br><a href ="ScheduleMovie.php">Go to Schedule Movie Showings page</a>';
+		echo "<br>";
+		echo "<form action ='index.php'>";
+		echo "<input type ='submit' value = 'Go back to index' >";  
+		echo "</form>";   
 	}
 ?> 
  

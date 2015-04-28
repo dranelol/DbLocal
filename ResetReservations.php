@@ -36,6 +36,10 @@ Reset Reservations
 	}
 
 	echo "Logged in as: $sessionUser"; 
+	if($sessionUser == "member")
+	{
+		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
+	}
 	
 	$date = $_SESSION["today"];
 	echo "<br>";
@@ -84,5 +88,8 @@ Reset Reservations
 	
 	echo "Reservations and movie showing data reset!";
 	
-	echo '<br><a href ="index.php">Go to Index</a>';
+	echo "<br>";
+	echo "<form action ='index.php'>";
+	echo "<input type ='submit' value = 'Go back to index' >";  
+	echo "</form>";   
 ?>
