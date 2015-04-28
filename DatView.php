@@ -70,13 +70,15 @@
                 "select 
                     B.Name as User, C.Name, S.MovieID, M.Title, S.ShowTime 
                     from 
-                        Member B, Movie M, Cinema C, Reservation R, MovieShowing S
+                        Member B, Movie M, Cinema C, Reservation R, MovieShowing S 
                     where
                         C.ID = S.CinemaID 
                         and R.MovieShowingID = S.ID 
                         and S.MovieID = M.ID 
                         and R.MemberID = B.ID 
-                        and R.MembershipID = '$accountSelection' ";
+                        and R.MembershipID = '$accountSelection'
+                        order by M.Title, B.Name";
+                        
             
         }        
         else //it's a specific user
@@ -95,7 +97,7 @@
         $seentItResult = mysql_query($seentItQuery) or die(mysql_error());
         
         echo "<table border = \"1\" cellpadding = \"10\">";
-        echo "<caption align = 'center'> Displaying Information for: <b>$memberSelection</b> </caption>";
+        echo "<caption align = 'left'> Displaying Information for: <b>$memberSelection</b> </caption>";
             echo "<tr> 
                       <th>Member</th> 
                       <th>Cinema</th> 

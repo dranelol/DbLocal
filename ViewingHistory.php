@@ -57,12 +57,17 @@
 -->
 <form action = 'ViewingHistory.php' method = 'post'>
 	<?php  
-        
+    //did we click the Submit button without anything selected?
+    if(isset($_POST['SubmitAccount']))
+    {
+    //do nothing
+    }
+    else//display the dropdown and set the AccountSelection post
+    {
         //this is what gets posted to the next page from the action
-        echo "Select Account";
-        echo "<br>";
+        echo "<h1>Select Account</h1>";
         echo "<select name = 'AccountSelection'>";
-        //echo "<option selected='true' disabled='true' > Choose an Account...</option>";
+        echo "<option selected='true' disabled='true' > Choose an Account...</option>";
         $AccountQuery = "select distinct AcctNum from Membership";
         $AccountResult = mysql_query($AccountQuery) or die(mysql_error());
         
@@ -70,50 +75,49 @@
         {	
             $accountID = $row['AcctNum'];
             echo "<option value = '$accountID' align = center> $accountID";
-            echo "</option>";
-            
-             
+            echo "</option>"; 
         }	 
         
         echo"</select>";
-        echo "<input type='submit' value='Submit' name = 'SubmitAccount'>";
-
-        
+        echo "<input type= 'submit' value='Submit' name = 'SubmitAccount'>";
+    }
     ?>
-<br>
-<br>
-</form>
 
-<form action = 'DatView.php' method = 'post'>
+</form> 
+<form action = 'DatView.php' method = 'POST'>
 <?php
-
+    //if the user clicked the SubmitAccount button
     if(isset($_POST['SubmitAccount']))
-    {   
+    {   //if the AccountSelection was posted from ViewingHistory.php /this page/
         if(isset($_POST['AccountSelection']))
         { 
+            //alias for the AccountSelection post
             $acc = $_POST['AccountSelection'];
 
             echo "<h1>Select a Member from Account $acc</h1>"; 
+            //selection name for the dropdown this is what gets sent to DatView.php
             echo"<select name = 'MemberSelection'>";
-            
+            //make all the default option 
+            //if this is selected then all entries are shown for the account
             echo "<option selected='true'> All </option>";
+            //query the members where select all members that match the account posted
             $memberQuery = "SELECT * FROM Member where MemberAcctNum = $acc";		  
             $memberResult = mysql_query($memberQuery) or die(mysql_error());	       
-        
+            
             while($row = mysql_fetch_array($memberResult))
             {
                 $memberID = $row['Name'];
-                echo "<option value = '$memberID' > $memberID </option>";
+                echo "<option value = '$memberID' > $memberID </option> style='height:25px; width:100px'> ";
             }
 
             echo"</select>";
             echo"<input type = 'hidden' value = '$acc' name = 'AccountSelection'>";
-            echo"<input type = 'submit' value = 'Submit'><br> <br>";
+            echo"<input type = 'submit' value = 'Submit'>";
             
         }
         else
         {
-            echo("No account selected please select an account...");
+            echo("<h1>No account selected please select an account...</h1>");
         
         }
     }
@@ -121,20 +125,20 @@
 ?>
 </form>
 
-<!--		
+
 <form action = 'ViewingHistory.php'>
 
 	<?php		
-    /*
-    if(isset($_POST['SubmitAccount']))
+    
+    if(isset($_POST['SubmitAccount']) )
     {
-        echo"<input type = 'submit' value = 'Cancel' name = 'Cancel'> <br> <br>";
+        echo"<input type = 'submit' value = 'Cancel' name = 'Cancel'  style='height:20px; width:100px'>  ";
     }
-    */
+    
  	?>	
 
 </form>
--->
+
 <form action = 'index.php'>
 	<?php		 
 		echo"<input type ='submit' value = 'Go back to index' >";	 
