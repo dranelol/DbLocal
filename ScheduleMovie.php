@@ -27,12 +27,12 @@
 <html>
 <head>
 <title> 
-Schedule Movie Confirmation
+Schedule Movie 
 </title>
 </head>
 
 <h3>
-Schedule Movie Showing Confirmation
+Schedule Movie Showing
 </h3>
 <body>
 
