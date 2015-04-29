@@ -1,3 +1,10 @@
+<!--
+Name: Matthew Williamson
+CLID: MCW4553
+Date: 4/29/2015
+CoA: I certify this is entirely my work
+-->
+
 <?php 
 	include "login.php"; 
 	if(isset($_SESSION["userType"]) == false)

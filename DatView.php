@@ -1,3 +1,10 @@
+<!--
+Name: Matthew Williamson
+CLID: MCW4553
+Date: 4/29/2015
+CoA: I certify this is entirely my work
+-->
+
 <?php 
 	include "login.php"; 
 	if(isset($_SESSION["userType"]) == false)
@@ -59,7 +66,7 @@
         $memberSelection = $_POST['MemberSelection'];
         $accountSelection = $_POST['AccountSelection'];
         
-        echo("<h1>Viewing Account# $accountSelection</h1>");
+        echo("<h1>Viewing Account #$accountSelection</h1><hr>");
         //print the memberSelection to see what we got
        
         
@@ -95,28 +102,37 @@
         } 
         
         $seentItResult = mysql_query($seentItQuery) or die(mysql_error());
-        
-        echo "<table border = \"1\" cellpadding = \"10\">";
-        echo "<caption align = 'left'> Displaying Information for: <b>$memberSelection</b> </caption>";
-            echo "<tr> 
-                      <th>Member</th> 
-                      <th>Cinema</th> 
-                      <th>Movie</th> 
-                      <th>Time</th>
-                  </tr>";
-        
-        while($row = mysql_fetch_array($seentItResult))
-        {                
-            echo "<tr>
-                      <td>" . $row['User'].     "</td>
-                      <td>" . $row['Name'].     "</td>
-                      <td>" . $row['Title'].    "</td>
-                      <td>" . $row['ShowTime']. "</td>
-                  </tr>";
-        } 
-        
-        echo "</table>";
-        echo"<br>";
+        if(mysql_num_rows($seentItResult))
+        {
+            echo "<table border = \"1\" cellpadding = \"10\">";
+            echo "<caption align = 'left'> Displaying Information for: <b>$memberSelection</b> </caption>";
+                echo "<tr> 
+                          <th>Member</th> 
+                          <th>Cinema</th> 
+                          <th>Movie</th> 
+                          <th>Time</th>
+                      </tr>";
+            
+            while($row = mysql_fetch_array($seentItResult))
+            {                
+                echo "<tr>
+                          <td>" . $row['User'].     "</td>
+                          <td>" . $row['Name'].     "</td>
+                          <td>" . $row['Title'].    "</td>
+                          <td>" . $row['ShowTime']. "</td>
+                      </tr>";
+            } 
+            
+            echo "</table>";
+            echo"<br>";
+        }
+        else
+        {
+            if($memberSelection != "All")            
+                echo("<h1>No viewing history available for $memberSelection</h1>");
+            else
+                echo("<h1>No viewing history available for Account #$accountSelection</h1>");
+        }
         
     }
     else
@@ -130,7 +146,7 @@
 
 
  <form action = 'ViewingHistory.php'>
-        <input type ='submit' value = 'Go back to Viewing History' align = 'left' >
+        <input type ='submit' value = 'Go back to Viewing History Selection' align = 'left' >
     </form> 
  
 
