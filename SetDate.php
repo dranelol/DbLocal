@@ -69,7 +69,7 @@ Set Today's Date
 	// CODE STARTS HERE
 	echo "<form action='index.php' method = 'post'>";
 	echo "<input type='date' name='today'>";
-	echo "<br>";
+	echo "<br><br>";
 	echo "<input type='submit' value='Set Date'>";
 	echo "</form>";
 			  

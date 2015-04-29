@@ -87,7 +87,7 @@ Add a Cinema
   Name: <input type="text" name="name" placeholder="Grand 16" required><br>
   Address: <input type="text" name="address" placeholder="123 North Easy Street" required><br>
   Phone Number: <input type="tel" name="phoneNumber" placeholder="123-456-7890" required><br>
-  <input type="submit" value="Add Cinema">
+  <br><input type="submit" value="Add Cinema">
 </form>
 
 <?php

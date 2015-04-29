@@ -63,7 +63,7 @@ Clear Session
 	
 	echo "Cleared session variables!";
 	
-	echo "<br>";
+	echo "<br><br>";
 	echo "<form action ='index.php'>";
 	echo "<input type ='submit' value = 'Go back to index' >";  
 	echo "</form>";   
