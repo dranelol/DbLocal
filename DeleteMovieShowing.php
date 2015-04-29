@@ -33,7 +33,7 @@ Delete a Movie Showing
 </head>
 
 <h3>
-Delete a MovieShowing
+Delete a Movie Showing
 </h3>
 <body>
 

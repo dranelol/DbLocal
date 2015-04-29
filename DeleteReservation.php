@@ -124,7 +124,7 @@ Delete a Reservation
 		
 		else
 		{
-			echo "No existing movie showings.<br>";
+			echo "No existing reservations.<br>";
 		}
 	}
 	
