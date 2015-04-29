@@ -1,5 +1,12 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// This script adds a membership to the database. 
+// As a side-effect, a primary member for the membership is also created, and added to the database.
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -80,8 +87,6 @@ Add Membership
 			  <input type='number' name='age' placeholder='32' required>
 			  <br>";
 			   
-			  
-			
 	echo "Input the length, in months, for this membership <br>";
 	
 	echo "Length of membership: 

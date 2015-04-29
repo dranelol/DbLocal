@@ -1,5 +1,13 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Clears all reservations from database, resets all seating charts for movie showings to their default state
+
+
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)

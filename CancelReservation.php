@@ -1,5 +1,12 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// This script cancels a previously-made movie reservation.
+
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)

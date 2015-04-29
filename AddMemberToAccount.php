@@ -1,5 +1,11 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// This script creates a member in the database, and adds them to the currently logged-in membership.
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -31,7 +37,7 @@ Add Member to Membership
 	
 	// restrict access only to certain userTypes
 	
-	/*
+	
 	if($sessionUser != "member")
 	{
 		echo 'Not logged in as a member!';
@@ -40,7 +46,7 @@ Add Member to Membership
 		
 		die();
 	}
-	*/
+	
 
 	echo "Logged in as: $sessionUser"; 
 	if($sessionUser == "member")

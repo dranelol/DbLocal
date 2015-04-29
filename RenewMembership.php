@@ -1,4 +1,11 @@
 <?php
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Allows members to either renew, or extend, their membership.
+
+
 
 	include "login.php";
 
