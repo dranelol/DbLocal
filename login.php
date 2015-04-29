@@ -1,4 +1,11 @@
 <?php
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Main utility file used by the website. Sets php-specific stuff, logs into the database, and starts the session.
+
+
 //phpinfo();
 // Display errors to browser
 error_reporting(E_ALL ^ E_DEPRECATED);

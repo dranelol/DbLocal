@@ -1,5 +1,12 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Confirmation page for reserving a seat at a movie showing.
+
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -73,7 +80,7 @@ Reserve a Seat
 		
 		// update the seating chart for that showing
 		
-		$seatQuery = "select S.SeatingChart
+		$seatQuery = "select S.SeatingChart, S.SeatsAvailable
 				from MovieShowing S, Theater T 
 				where S.ID = $showingID
 				and S.TheaterID = T.ID";
@@ -90,8 +97,11 @@ Reserve a Seat
 			
 			$newSeatingChart = serialize($seatingChartArray);
 			
+			$available = $rowResult['SeatsAvailable'] - 1;
+			
 			$updateSeatingChart = "update MovieShowing
-											    set SeatingChart = '$newSeatingChart'
+											    set SeatingChart = '$newSeatingChart',
+												SeatsAvailable = '$available'
 												where ID = $showingID";
 												
 			$updateResult = mysql_query($updateSeatingChart) or die(mysql_error());

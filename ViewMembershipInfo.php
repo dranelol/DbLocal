@@ -1,5 +1,13 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// View the membership info for the currently logged-in membership
+
+
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -87,6 +95,16 @@ View Membership Information
 	$membersQuery = "select * from Member M where M.MemberAcctNum = '$membershipID' order by M.MemberAcctOrder";
 	$membersResult = mysql_query($membersQuery) or die(mysql_error());
 	
+	$primaryMemberID = '';
+	
+	$primaryMemberQuery = "select M.PrimaryMemberID from Membership M where M.AcctNum = '$membershipID'";
+	$primaryMemberResult = mysql_query($primaryMemberQuery) or die(mysql_error());
+	
+	if($rowResult = mysql_fetch_array($primaryMemberResult))
+	{
+		$primaryMemberID = $rowResult['PrimaryMemberID'];
+	}
+	
 	echo "Members in membership: <br>";
 	
 	echo "<table border = \'1\' cellpadding = \'10\'>";
@@ -101,7 +119,7 @@ View Membership Information
 	while($row = mysql_fetch_array($membersResult))
 	{
 		$name = '';
-		if($row['MemberAcctOrder'] == '1')
+		if($row['ID'] == $primaryMemberID)
 		{
 			$name = $row['Name'] . '*';
 		}

@@ -1,12 +1,9 @@
 <?php
-
 // Author: Matt Wallace
 // Last Edited: 04/28/2015
 // I promise this is my code.
 // Description:
-// Sets the date for the session
-
-
+// Confirmation page for update membership
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -23,12 +20,12 @@
 <html>
 <head>
 <title> 
-Set Today's Date
+Update Membership Confirmation
 </title>
 </head>
 
 <h3>
-Set Today's Date
+Update Membership Confirmation
 </h3>
 <body>
 
@@ -48,7 +45,6 @@ Set Today's Date
 		die();
 	}
 	
-
 	echo "Logged in as: $sessionUser"; 
 	if($sessionUser == "member")
 	{
@@ -67,16 +63,32 @@ Set Today's Date
 <?php 
 
 	// CODE STARTS HERE
-	echo "<form action='index.php' method = 'post'>";
-	echo "<input type='date' name='today'>";
-	echo "<br>";
-	echo "<input type='submit' value='Set Date'>";
-	echo "</form>";
-			  
+	if(isset($_POST['membershipID']) && isset($_POST['newPrimaryID']) && isset($_POST['startDate']) && isset($_POST['endDate']))
+	{
+		$membershipID = $_POST['membershipID'];
+		$newPrimaryMemberID = $_POST['newPrimaryID'];
+		$startDate = $_POST['startDate'];
+		$endDate = $_POST['endDate'];
+		
+		
+		
+		$membershipUpdate = "update Membership set PrimaryMemberID = '$newPrimaryMemberID', StartDate = '$startDate', EndDate = '$endDate' where AcctNum = '$membershipID'";
+		$membershipResult = mysql_query($membershipUpdate) or die(mysql_error());
+		
+		echo "Membership successfully updated!";
+	}
+	
+	else
+	{
+		echo "Got here illegally!";
+		
+	}
+	
 	echo "<br>";
 	echo "<form action ='index.php'>";
 	echo "<input type ='submit' value = 'Go back to index' >";  
-	echo "</form>";     
+	echo "</form>";	  
+	  
 ?>
 
 </body>

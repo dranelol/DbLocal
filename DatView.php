@@ -35,10 +35,16 @@
 	$sessionUser = $_SESSION['userType'];
     $date = $_SESSION["today"];
     $time = date('Y-m-d');
-	
-    
+	 
     echo "Logged in as: <b> $sessionUser </b><br>";	
-    echo "Member ID: <b> {$_SESSION['memberID']} </b> <br>";
+    echo "Member ID: <b>";
+    if($_SESSION['memberID'] == NULL) 
+        echo("NULL");
+    else
+        echo($_SESSION['memberID']);
+    
+    echo"</b> <br>";
+    
     echo "Today's date: <b>$date</b> <br>";
     echo "<hr>";
     
@@ -46,75 +52,85 @@
 ?> 
 
 <?php  
-    //is the viewSelection variable set from where this page is loaded from?
-    if($_SESSION['memberID'] == "member")
+    //is the memberSelection variable set from where this page is loaded from?
+
+    if (isset ($_POST['MemberSelection']))
     {
-        if (isset ($_POST['viewSelection']))
-        {
-            $viewSelection = $_POST['viewSelection'];
-            //print the viewSelection to see what we got
-           
-            
-            if($viewSelection == 'Account')//view selection for whole account
-            {
-                $seentItQuery = "select B.Name as User, C.Name, S.MovieID, M.Title, S.ShowTime 
-                from Member B, Movie M, Cinema C, Reservation R, MovieShowing S
-                where   C.ID = S.CinemaID 
-                    and R.MovieShowingID = S.ID 
-                    and S.MovieID = M.ID 
-                    and R.MemberID = B.ID 
-                    and R.MembershipID = '{$_SESSION['memberID']}'";   
-            }                
-            else //it's a specific user
-            {
-                $seentItQuery = "select B.Name as User, C.Name, S.MovieID, M.Title, S.ShowTime 
-                from Member B, Movie M, Cinema C, Reservation R, MovieShowing S
-                where   C.ID = S.CinemaID 
-                    and R.MovieShowingID = S.ID 
-                    and S.MovieID = M.ID 
-                    and R.MemberID = B.ID 
-                    and R.MembershipID = '{$_SESSION['memberID']}'
-                    and B.Name = '$viewSelection'"; 
-            } 
-            
-            $seentItResult = mysql_query($seentItQuery) or die(mysql_error());
-            
-            echo "<table border = \"1\" cellpadding = \"10\" align = \"left\">";
-            echo "<caption> Displaying Information for: <b>$viewSelection</b> </caption>";
-                echo "<tr> 
-                          <th>Member</th> 
-                          <th>Cinema</th> 
-                          <th>Movie</th> 
-                          <th>Time</th>
-                      </tr>";
-                   
-                while($row = mysql_fetch_array($seentItResult)){                
-                    echo "<tr>
-                              <td>" . $row['User'].     "</td>
-                              <td>" . $row['Name'].     "</td>
-                              <td>" . $row['Title'].    "</td>
-                              <td>" . $row['ShowTime']. "</td>
-                          </tr>";
-                } 
-             echo "</table>";
-            } 
+        $memberSelection = $_POST['MemberSelection'];
+        $accountSelection = $_POST['AccountSelection'];
         
-        else
+        echo("<h1>Viewing Account# $accountSelection</h1>");
+        //print the memberSelection to see what we got
+       
+        
+        if($memberSelection == 'All')//view selection for whole account
         {
-            echo " something bad happened... the viewSelection variable was not set.... you should not be here";    
-        }
+            
+            $seentItQuery = 
+                "select 
+                    B.Name as User, C.Name, S.MovieID, M.Title, S.ShowTime 
+                    from 
+                        Member B, Movie M, Cinema C, Reservation R, MovieShowing S 
+                    where
+                        C.ID = S.CinemaID 
+                        and R.MovieShowingID = S.ID 
+                        and S.MovieID = M.ID 
+                        and R.MemberID = B.ID 
+                        and R.MembershipID = '$accountSelection'
+                        order by M.Title, B.Name";
+                        
+            
+        }        
+        else //it's a specific user
+        {
+            
+            $seentItQuery = "select B.Name as User, C.Name, S.MovieID, M.Title, S.ShowTime 
+            from Member B, Movie M, Cinema C, Reservation R, MovieShowing S
+            where   C.ID = S.CinemaID 
+                and R.MovieShowingID = S.ID 
+                and S.MovieID = M.ID 
+                and R.MemberID = B.ID 
+                and R.MembershipID = '$accountSelection'
+                and B.Name = '$memberSelection'"; 
+        } 
+        
+        $seentItResult = mysql_query($seentItQuery) or die(mysql_error());
+        
+        echo "<table border = \"1\" cellpadding = \"10\">";
+        echo "<caption align = 'left'> Displaying Information for: <b>$memberSelection</b> </caption>";
+            echo "<tr> 
+                      <th>Member</th> 
+                      <th>Cinema</th> 
+                      <th>Movie</th> 
+                      <th>Time</th>
+                  </tr>";
+        
+        while($row = mysql_fetch_array($seentItResult))
+        {                
+            echo "<tr>
+                      <td>" . $row['User'].     "</td>
+                      <td>" . $row['Name'].     "</td>
+                      <td>" . $row['Title'].    "</td>
+                      <td>" . $row['ShowTime']. "</td>
+                  </tr>";
+        } 
+        
+        echo "</table>";
+        echo"<br>";
+        
     }
     else
     {
-        echo "why are you here?... not a member that's why";
+        echo " something bad happened... the memberSelection variable was not set.... you should not be here";    
     }
+ 
+
 ?>
 
 
 
-
  <form action = 'ViewingHistory.php'>
-        <input type ='submit' value = 'Go back to Viewing History' >
+        <input type ='submit' value = 'Go back to Viewing History' align = 'left' >
     </form> 
  
 

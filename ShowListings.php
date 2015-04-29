@@ -1,5 +1,12 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Shows all movie listings according to what was selected in MovieListings page
+
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -82,7 +89,7 @@ if(isset($_POST["complex_select_menu"])
 	if($complex == "all")
 	{
 		echo "<br><br>";
-		$listingsQueryBase = "select S.ID, C.Name, M.Title, S.ShowDate, S.ShowTime, C.Address
+		$listingsQueryBase = "select S.ID, C.Name, M.Title, M.Rating, S.ShowDate, S.ShowTime, C.Address, S.SeatsAvailable
 										from MovieShowing S, Cinema C, Movie M 
 										where C.ID = S.CinemaID
 										and S.MovieId = M.ID";
@@ -139,12 +146,14 @@ if(isset($_POST["complex_select_menu"])
 					
 					if(mysql_num_rows($checkListingsResult) > 0)
 					{
-						echo "<table border = \"10\" cellpadding = \"10\">";
+						echo "<table border = \"100\" cellpadding = \"10\">";
 						echo "<tr> 
 								  <th>Cinema Name</th>
-								  <th>Movie Name</th> 
+								  <th>Movie Name</th>  
+								  <th>Rating</th>  
 								  <th>Show Date</th>
-								  <th>Show Time</th
+								  <th>Show Time</th>
+								  <th>Seats Available</th>
 								  </tr>";
 								  
 						
@@ -158,15 +167,26 @@ if(isset($_POST["complex_select_menu"])
 							echo "<tr>
 									  <td>" . $row['Name']. "</td>
 									  <td>" . $row['Title']. "</td>
+									  <td>" . $row['Rating']. "</td>
 									  <td>" . $row['ShowDate']. "</td>
 									  <td>" . $row['ShowTime']. "</td>
-									  <td>
-									  <form action = 'Reservations.php' method = 'post'>
-									  <input type = 'hidden' name = 'ShowingID' value ='" . $row['ID'] . "'>
-									  <input type='submit' value='Reserve Seats'>
-									  </form>
-									  </td>
-									  </tr>";
+									  <td>" . $row['SeatsAvailable'] . "</td>";
+							if($row['SeatsAvailable'] == '0')
+							{
+								echo "<td><input type='submit' value='No seats' disabled></td>";
+							}
+							
+							else
+							{
+								echo "<td>
+										  <form action = 'Reservations.php' method = 'post'>
+										  <input type = 'hidden' name = 'ShowingID' value ='" . $row['ID'] . "'>
+										  <input type='submit' value='Reserve Seats'>
+										  </form>
+										  </td>";
+							}
+							
+							echo "</tr>";
 						}
 						
 						echo "</table>";
@@ -195,7 +215,7 @@ if(isset($_POST["complex_select_menu"])
 	else
 	{
 		echo "<br><br>";
-		$listingsQueryBase = "select S.ID, C.Name, M.Title, S.ShowDate, S.ShowTime, C.Address
+		$listingsQueryBase = "select S.ID, C.Name, M.Title, M.Rating, S.ShowDate, S.ShowTime, C.Address, S.SeatsAvailable
 										from MovieShowing S, Cinema C, Movie M 
 										where C.ID = S.CinemaID
 										and S.MovieId = M.ID";
@@ -235,12 +255,14 @@ if(isset($_POST["complex_select_menu"])
 		{
 			if(mysql_num_rows($listingsResult))
 			{
-				echo "<table border = \"1\" cellpadding = \"10\">";
+				echo "<table border = \"100\" cellpadding = \"10\">";
 				echo "<tr> 
 						  <th>Cinema Name</th>
 						  <th>Movie Name</th> 
+						  <th>Rating</th> 
 						  <th>Show Date</th>
-						  <th>Show Time</th
+						  <th>Show Time</th>
+						  <th>Seats Available</th>
 						  </tr>";
 						  
 				while($row = mysql_fetch_array($listingsResult))
@@ -248,15 +270,27 @@ if(isset($_POST["complex_select_menu"])
 					echo "<tr>
 							  <td>" . $row['Name']. "</td>
 							  <td>" . $row['Title']. "</td>
+							  <td>" . $row['Rating']. "</td>
 							  <td>" . $row['ShowDate']. "</td>
 							  <td>" . $row['ShowTime']. "</td>
-							  <td>
-							  <form action = 'Reservations.php' method = 'post'>
-							  <input type = 'hidden' name = 'ShowingID' value ='" . $row['ID'] . "'>
-							  <input type='submit' value='Reserve Seats'>
-							  </form>
-							  </td>
-							  </tr>";
+							  <td>" . $row['SeatsAvailable'] . "</td>";
+							  
+					if($row['SeatsAvailable'] == '0')
+					{
+						echo "<td><input type='submit' value='No seats' disabled></td>";
+					}
+					
+					else
+					{
+						echo "<td>
+								  <form action = 'Reservations.php' method = 'post'>
+								  <input type = 'hidden' name = 'ShowingID' value ='" . $row['ID'] . "'>
+								  <input type='submit' value='Reserve Seats'>
+								  </form>
+								  </td>";
+					}
+					
+					echo "</tr>";
 				}
 				
 				echo "</table>";

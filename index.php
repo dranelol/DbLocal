@@ -1,4 +1,11 @@
 <?php
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Main index for the site
+
+
 	include "login.php";
 	
 	
@@ -125,6 +132,8 @@ Index for Janksby Database
 		echo "<br>";
 		echo "<a href ='DeleteCinema.php'>Delete a Cinema</a>";
 		echo "<br>";
+		echo "<a href ='UpdateCinema.php'>Update a Cinema</a>";
+		echo "<br>";
 		
 		echo "<br><b> Manage Theaters </b>";
 		echo "<br>";
@@ -139,12 +148,18 @@ Index for Janksby Database
 		echo "<br>";
 		echo "<a href ='DeleteMovie.php'>Delete a Movie</a>";
 		echo "<br>";
+		echo "<a href ='UpdateMovie.php'>Update a Movie</a>";
+		echo "<br>";
 		
 		echo "<br><b> Manage Members </b>";
 		echo "<br>";
 		echo "<a href ='DeleteMembership.php'>Delete a Membership</a>";
 		echo "<br>";		
 		echo "<a href ='DeleteMember.php'>Delete a Member</a>";
+		echo "<br>";
+		echo "<a href ='UpdateMember.php'>Update a Member</a>";
+		echo "<br>";
+		echo "<a href ='UpdateMembership.php'>Update a Membership</a>";
 		echo "<br>";
 
 		echo "<br><b> Manage Events </b>";

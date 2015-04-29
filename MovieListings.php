@@ -1,5 +1,13 @@
 <?php
 
+// Author: Matt Wallace, Ryan Adair
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Allows member to search for movie listings
+
+
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -147,12 +155,13 @@ Select a Day
 <br>
 
 <input type = "submit" value = "Show Listings">
-<br><br>
+</form> 
+<br>
 <form action = 'index.php'>
     <?php        
         echo"<input type ='submit' value = 'Go back to index' >";    
     ?>        
-</form> 
+
 </form>
 </body>
 </html>

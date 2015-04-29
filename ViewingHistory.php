@@ -9,21 +9,21 @@
 	} 
 ?>
 <html>
-    <head>    
-        <title> Movie Viewing History</title>
-        <style>
-            hr { 
-                display: block;
-                margin-top: 0.5em;
-                margin-bottom: 0.5em;
-                margin-left: auto;
-                margin-right: auto;
-                border-style: inset;
-                border-width: 1px;
-            } 
-        </style>
-    </head> 
-    
+	<head>	  
+		<title> Movie Viewing History</title>
+		<style>
+			hr { 
+				display: block;
+				margin-top: 0.5em;
+				margin-bottom: 0.5em;
+				margin-left: auto;
+				margin-right: auto;
+				border-style: inset;
+				border-width: 1px;
+			} 
+		</style>
+	</head> 
+	
 <h3>Movie Viewing History</h3><hr> 
 
 <body>
@@ -31,67 +31,119 @@
 <?php 
 
 	$sessionUser = $_SESSION['userType'];
-
-	echo "Logged in as: $sessionUser"; 
-	if($sessionUser == "member")
-	{
-		echo "<br>Membership ID: " . $_SESSION['memberID'] . "<br>";
-	}
-	
 	$date = $_SESSION["today"];
-	echo "<br>";
-	echo "Today's date: $date";
+	$time = date('Y-m-d');	   
+	$currentMember = $_SESSION['memberID'];
+	
+	echo "Logged in as: <b> $sessionUser </b><br>";	
+	echo "Member ID: <b>";
+	if($currentMember == NULL) 
+		echo("NULL");
+	else
+		echo($currentMember);
+	
+	echo"</b> <br>";
+	
+	echo "Today's date: <b>$date</b> <br>";
+	echo "<hr>";
+	
 ?> 
 
 <!--
 |Movie viewing history|
-    -For either a selected individual or a selected account, show a list of the movies they have seen. 
-    -If the listing is for an account, list the movies seen by each member associated with the account.
-    -The account history will be in alphabetical order by movie title within member (in alphabetical order).
+	-For either a selected individual or a selected account, show a list of the movies they have seen. 
+	-If the listing is for an account, list the movies seen by each member associated with the account.
+	-The account history will be in alphabetical order by movie title within member (in alphabetical order).
 -->
-
-<form action = 'DatView.php' method = 'post'>
-    <?php  
-    if($_SESSION['userType'] == "guest"){    
-        echo("lol ur a guest... Guess do not have viewing history?");
-    }
-    else if($_SESSION['userType'] == "employee"){
-        echo("lol ur an employee.. Employees dont have viewing history?");
-    }
-    else
+<form action = 'ViewingHistory.php' method = 'post'>
+	<?php  
+    //did we click the Submit button without anything selected?
+    if(isset($_POST['SubmitAccount']))
     {
-        $memberQuery = "SELECT * FROM Member where MemberAcctNum = '{$_SESSION['memberID']}'";
-        $memberResult = mysql_query($memberQuery) or die(mysql_error());
+    //do nothing
+    }
+    else//display the dropdown and set the AccountSelection post
+    {
+        //this is what gets posted to the next page from the action
+        echo "<h1>Select Account</h1>";
+        echo "<select name = 'AccountSelection'>";
+        echo "<option selected='true' disabled='true' > Choose an Account...</option>";
+        $AccountQuery = "select distinct AcctNum from Membership";
+        $AccountResult = mysql_query($AccountQuery) or die(mysql_error());
         
-        //select C.Name 
-        //from Cinema C, Reservation R, MovieShowing S 
-        //where C.ID = S.CinemaID and R.MovieShowingID = S.ID and R.ID = $thisReservationID 
-        //<select name="movie_select_menu">
-        //<option value="all">all</option>
-        //
-        echo"<select name = 'viewSelection'>";
-        echo"<option value = 'Account'> Account </option>";
-        
-        while($row = mysql_fetch_array($memberResult)){    
-            echo "<option value = '{$row['Name']}' >{$row['Name']}</option>";
-        } 
+        while($row = mysql_fetch_array($AccountResult))
+        {	
+            $accountID = $row['AcctNum'];
+            echo "<option value = '$accountID' align = center> $accountID";
+            echo "</option>"; 
+        }	 
         
         echo"</select>";
-       
-        echo"<input type = 'submit' name = 'Submit Form'> <br> <br>  ";
+        echo "<input type= 'submit' value='Submit' name = 'SubmitAccount'>";
     }
     ?>
-        
-    
-</form>
- 
- 
-<form action = 'index.php'>
-    <?php        
-        echo"<input type ='submit' value = 'Go back to index' >";    
-    ?>        
-</form> 
 
+</form> 
+<form action = 'DatView.php' method = 'POST'>
+<?php
+    //if the user clicked the SubmitAccount button
+    if(isset($_POST['SubmitAccount']))
+    {   //if the AccountSelection was posted from ViewingHistory.php /this page/
+        if(isset($_POST['AccountSelection']))
+        { 
+            //alias for the AccountSelection post
+            $acc = $_POST['AccountSelection'];
+
+            echo "<h1>Select a Member from Account $acc</h1>"; 
+            //selection name for the dropdown this is what gets sent to DatView.php
+            echo"<select name = 'MemberSelection'>";
+            //make all the default option 
+            //if this is selected then all entries are shown for the account
+            echo "<option selected='true'> All </option>";
+            //query the members where select all members that match the account posted
+            $memberQuery = "SELECT * FROM Member where MemberAcctNum = $acc";		  
+            $memberResult = mysql_query($memberQuery) or die(mysql_error());	       
+            
+            while($row = mysql_fetch_array($memberResult))
+            {
+                $memberID = $row['Name'];
+                echo "<option value = '$memberID' > $memberID </option> style='height:25px; width:100px'> ";
+            }
+
+            echo"</select>";
+            echo"<input type = 'hidden' value = '$acc' name = 'AccountSelection'>";
+            echo"<input type = 'submit' value = 'Submit'>";
+            
+        }
+        else
+        {
+            echo("<h1>No account selected please select an account...</h1>");
+        
+        }
+    }
+    
+?>
+</form>
+
+
+<form action = 'ViewingHistory.php'>
+
+	<?php		
+    
+    if(isset($_POST['SubmitAccount']) )
+    {
+        echo"<input type = 'submit' value = 'Cancel' name = 'Cancel'  style='height:20px; width:100px'>  ";
+    }
+    
+ 	?>	
+
+</form>
+
+<form action = 'index.php'>
+	<?php		 
+		echo"<input type ='submit' value = 'Go back to index' >";	 
+	?>		  
+</form> 
 </body>
 </html>
 

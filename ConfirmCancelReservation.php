@@ -1,5 +1,12 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Confirmation page for cancelling a reservation
+
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -64,15 +71,32 @@ HEADING
 	{
 		$reservationID = $_POST['reservationToCancel'];
 		
-		$deleteReservationQuery = "delete from Reservation where ID = '$reservationID'";
-		$deleteReservationResult = mysql_query($deleteReservationQuery) or die(mysql_error());
+		$getShowingQuery = "select S.ID, S.SeatsAvailable from MovieShowing S, Reservation R where R.MovieShowingID = S.ID and R.ID = '$reservationID'";
 		
-		echo "Successfully cancelled reservation!";
+		$getShowingResult = mysql_query($getShowingQuery) or die (mysql_error());
 		
-		echo "<br>";
-		echo "<form action ='index.php'>";
-		echo "<input type ='submit' value = 'Go back to index' >";  
-		echo "</form>";   
+		if($getShowingRow = mysql_fetch_array($getShowingResult))
+		{
+			$showingID = $getShowingRow['ID'];
+			$available = $getShowingRow['SeatsAvailable'];
+			
+			$available = $available + 1;
+			
+			$updateShowing = "update MovieShowing set SeatsAvailable='$available' where ID = '$showingID'";
+			$updateShowingResult = mysql_query($updateShowing);
+			
+			$deleteReservationQuery = "delete from Reservation where ID = '$reservationID'";
+			$deleteReservationResult = mysql_query($deleteReservationQuery) or die(mysql_error());
+			
+			echo "Successfully cancelled reservation!";
+			
+			echo "<br>";
+			echo "<form action ='index.php'>";
+			echo "<input type ='submit' value = 'Go back to index' >";  
+			echo "</form>";   
+		}
+		
+		
 	}
 	
 	else

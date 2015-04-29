@@ -1,9 +1,9 @@
 /*
-
-Janksby Incorporated, LLC
-
-we didn't copy anything
-
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Resets the database, loads in default data
 */
 drop table if exists Reservation;
 drop table if exists MovieShowing;

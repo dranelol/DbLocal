@@ -27,7 +27,7 @@
 <html>
 <head>
 <title> 
-Schedule Movie 
+Schedule Movie Showing
 </title>
 </head>
 

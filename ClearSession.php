@@ -1,5 +1,12 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// This scripts clears all session variables used by the website.
+
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)

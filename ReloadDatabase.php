@@ -1,5 +1,13 @@
 <?php
 
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Reloads database with basic test data
+
+
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)

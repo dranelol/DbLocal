@@ -1,4 +1,9 @@
 <?php
+// Author: Matt Wallace
+// Last Edited: 04/28/2015
+// I promise this is my code.
+// Description:
+// Login page for admins
 include "login.php";
 ?>
 
