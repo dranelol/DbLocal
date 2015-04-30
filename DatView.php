@@ -32,7 +32,7 @@ CoA: I certify this is entirely my work
     </head>
 
 
-<h1> what did you see...<hr></h1>
+<h1>Viewing History<hr></h1>
 
 
 <body>
@@ -72,7 +72,7 @@ CoA: I certify this is entirely my work
         
         if($memberSelection == 'All')//view selection for whole account
         {
-            
+            /*
             $seentItQuery = 
                 "select 
                     B.Name as User, C.Name, S.MovieID, M.Title, S.ShowTime 
@@ -84,14 +84,39 @@ CoA: I certify this is entirely my work
                         and S.MovieID = M.ID 
                         and R.MemberID = B.ID 
                         and R.MembershipID = '$accountSelection'
-                        order by M.Title, B.Name";
+                        order by B.Name, M.Title";
+						
+			*/
+			
+			$seentItQuery = 
+                "select 
+                    distinct B.Name as User,  M.Title
+                    from 
+                        Member B, Movie M, Cinema C, Reservation R, MovieShowing S 
+                    where
+                        C.ID = S.CinemaID 
+                        and R.MovieShowingID = S.ID 
+                        and S.MovieID = M.ID 
+                        and R.MemberID = B.ID 
+                        and R.MembershipID = '$accountSelection'
+                        order by B.Name, M.Title";
                         
             
         }        
         else //it's a specific user
         {
-            
+            /*
             $seentItQuery = "select B.Name as User, C.Name, S.MovieID, M.Title, S.ShowTime 
+            from Member B, Movie M, Cinema C, Reservation R, MovieShowing S
+            where   C.ID = S.CinemaID 
+                and R.MovieShowingID = S.ID 
+                and S.MovieID = M.ID 
+                and R.MemberID = B.ID 
+                and R.MembershipID = '$accountSelection'
+                and B.Name = '$memberSelection'"; 
+			*/
+			
+			$seentItQuery = "select distinct B.Name as User, M.Title
             from Member B, Movie M, Cinema C, Reservation R, MovieShowing S
             where   C.ID = S.CinemaID 
                 and R.MovieShowingID = S.ID 
@@ -106,20 +131,31 @@ CoA: I certify this is entirely my work
         {
             echo "<table border = \"1\" cellpadding = \"10\">";
             echo "<caption align = 'left'> Displaying Information for: <b>$memberSelection</b> </caption>";
-                echo "<tr> 
+             /*   echo "<tr> 
                           <th>Member</th> 
                           <th>Cinema</th> 
                           <th>Movie</th> 
                           <th>Time</th>
                       </tr>";
+					  */
+			echo "<tr> 
+                          <th>Member</th> 
+                          <th>Movie</th> 
+                      </tr>";
             
             while($row = mysql_fetch_array($seentItResult))
-            {                
+            {     
+				/*			
                 echo "<tr>
                           <td>" . $row['User'].     "</td>
                           <td>" . $row['Name'].     "</td>
                           <td>" . $row['Title'].    "</td>
                           <td>" . $row['ShowTime']. "</td>
+                      </tr>";
+				*/
+					  echo "<tr>
+                          <td>" . $row['User'].     "</td>
+                          <td>" . $row['Title'].    "</td>
                       </tr>";
             } 
             

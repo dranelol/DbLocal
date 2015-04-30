@@ -109,7 +109,7 @@ Reserve a Seat
 		$memberCountQuery = "select count(*) as mCount from Member M where M.MemberAcctNum='$membershipID'";
 		$memberCountResult = mysql_query($memberCountQuery) or die(mysql_error());
 		
-		$memberCountReservationsQuery = "select count(*) as rCount from Reservation R where R.MembershipID='$membershipID'";
+		$memberCountReservationsQuery = "select count(*) as rCount from Reservation R where R.MovieShowingID = '$showingID' and R.MembershipID = '$membershipID'";
 		$memberCountReservationsResult = mysql_query($memberCountReservationsQuery) or die(mysql_error());
 		
 		$row1 = mysql_fetch_array($memberCountResult);
