@@ -106,7 +106,6 @@ Reserve a Seat
 			die();
 		}
 		
-		
 		$memberCountQuery = "select count(*) as mCount from Member M where M.MemberAcctNum='$membershipID'";
 		$memberCountResult = mysql_query($memberCountQuery) or die(mysql_error());
 		

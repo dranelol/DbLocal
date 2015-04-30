@@ -71,7 +71,7 @@ HEADING
 	{
 		$reservationID = $_POST['reservationToCancel'];
 		
-		$getShowingQuery = "select S.ID, S.SeatsAvailable from MovieShowing S, Reservation R where R.MovieShowingID = S.ID and R.ID = '$reservationID'";
+		$getShowingQuery = "select S.ID, S.SeatsAvailable, R.SeatRow, R.SeatColumn, S.SeatingChart from MovieShowing S, Reservation R where R.MovieShowingID = S.ID and R.ID = '$reservationID'";
 		
 		$getShowingResult = mysql_query($getShowingQuery) or die (mysql_error());
 		
@@ -79,10 +79,17 @@ HEADING
 		{
 			$showingID = $getShowingRow['ID'];
 			$available = $getShowingRow['SeatsAvailable'];
+			$seatRow = $getShowingRow['SeatRow'];
+			$seatColumn = $getShowingRow['SeatColumn'];
+			$seatingChart = $getShowingRow['SeatingChart'];
 			
 			$available = $available + 1;
 			
-			$updateShowing = "update MovieShowing set SeatsAvailable='$available' where ID = '$showingID'";
+			$seatingChartArray = unserialize($seatingChart);
+			$seatingChartArray[$seatRow][$seatColumn] = '0';
+			$newSeatingChart = serialize($seatingChartArray);
+			
+			$updateShowing = "update MovieShowing set SeatsAvailable='$available', SeatingChart ='$newSeatingChart' where ID = '$showingID'";
 			$updateShowingResult = mysql_query($updateShowing);
 			
 			$deleteReservationQuery = "delete from Reservation where ID = '$reservationID'";

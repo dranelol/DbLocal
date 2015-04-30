@@ -82,6 +82,23 @@ Reservations for Movie Showing
 		$showingID = $_POST['ShowingID'];
 		$memberID = $_SESSION['memberID'];
 		
+		$endDate = mysql_fetch_array(mysql_query("select EndDate from Membership where AcctNum = '$memberID'"))['EndDate'];
+		
+		$today = explode("/", $date);
+		
+		$todayFormat = date("Y-m-d", mktime(0,0,0, $today[0], $today[1], $today[2]));
+		
+		if($endDate < $todayFormat)
+		{
+			echo "Your reservation has expired! Go renew it!";
+			echo "<br>";
+			echo "<form action ='index.php'>";
+			echo "<input type ='submit' value = 'Go back to index' >";  
+			echo "</form>";   
+			die();
+		}
+		
+		
 		
 		$showingQuery = "select S.ShowDate, S.ShowTime, C.Name, T.TheaterNumber, M.Title
 									from MovieShowing S, Movie M, Cinema C, Theater T
