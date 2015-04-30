@@ -128,6 +128,8 @@ Index for Janksby Database
 		
 		echo "<br><b> Manage Cinemas </b>";
 		echo "<br>";
+		echo "<a href ='ShowCinemas.php'>View Cinemas</a>";
+		echo "<br>";
 		echo "<a href ='AddCinema.php'>Add a Cinema</a>";
 		echo "<br>";
 		echo "<a href ='DeleteCinema.php'>Delete a Cinema</a>";
@@ -137,12 +139,16 @@ Index for Janksby Database
 		
 		echo "<br><b> Manage Theaters </b>";
 		echo "<br>";
+		echo "<a href ='ShowTheaters.php'>View Theaters</a>";
+		echo "<br>";
 		echo "<a href ='AddTheater.php'>Add a Theater</a>";
 		echo "<br>";
 		echo "<a href ='DeleteTheater.php'>Delete a Theater</a>";
 		echo "<br>";		
 		
 		echo "<br><b> Manage Movies </b>";
+		echo "<br>";
+		echo "<a href ='ShowMovies.php'>View Movies</a>";
 		echo "<br>";
 		echo "<a href ='AddMovie.php'>Add a Movie</a>";
 		echo "<br>";
@@ -153,9 +159,13 @@ Index for Janksby Database
 		
 		echo "<br><b> Manage Members </b>";
 		echo "<br>";
-		echo "<a href ='DeleteMembership.php'>Delete a Membership</a>";
+		echo "<a href ='ShowMembers.php'>View Members</a>";
+		echo "<br>";
+		echo "<a href ='ShowMemberships.php'>View Memberships</a>";
 		echo "<br>";		
 		echo "<a href ='DeleteMember.php'>Delete a Member</a>";
+		echo "<br>";
+		echo "<a href ='DeleteMembership.php'>Delete a Membership</a>";
 		echo "<br>";
 		echo "<a href ='UpdateMember.php'>Update a Member</a>";
 		echo "<br>";
@@ -163,6 +173,10 @@ Index for Janksby Database
 		echo "<br>";
 
 		echo "<br><b> Manage Events </b>";
+		echo "<br>";
+		echo "<a href ='ShowReservations.php'>View Reservations</a>";
+		echo "<br>";
+		echo "<a href ='ShowMovieShowings.php'>View Movie Showings</a>";
 		echo "<br>";
 		echo "<a href ='DeleteReservation.php'>Delete a Reservation</a>";
 		echo "<br>";
