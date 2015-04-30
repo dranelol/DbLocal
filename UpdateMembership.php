@@ -96,9 +96,9 @@ Update Membership
 		}
 		echo "</select>";
 		echo "<br>";
-		echo "<input type ='date' name ='startDate' value =$startDate>";
+		echo "Select new start date for membership: <input type ='date' name ='startDate' value =$startDate>";
 		echo "<br>";
-		echo "<input type ='date' name ='endDate' value =$endDate>";
+		echo "Select new end date for membership: <input type ='date' name ='endDate' value =$endDate>";
 		echo "<br>";
 		echo "<input type ='hidden' name ='membershipID' value='$membershipID'>";
 		echo "<br>";
