@@ -174,7 +174,7 @@ Index for Janksby Database
 
 		echo "<br><b> Manage Events </b>";
 		echo "<br>";
-		echo "<a href ='ShowReservations.php'>View Reservations</a>";
+		echo "<a href ='ShowReservation.php'>View Reservations</a>";
 		echo "<br>";
 		echo "<a href ='ShowMovieShowings.php'>View Movie Showings</a>";
 		echo "<br>";
