@@ -80,7 +80,7 @@ Schedule Movie Confirmation
 		{
 			$theaterID = $trow['ID'];	
 			$movieShowingQueryResult = mysql_query("select * from MovieShowing where CinemaID=$cinemaID and TheaterID=$theaterID and ShowDate='$date' and ShowTime='$time';") or die(mysql_error());
-		
+			
 			$cinemaName = mysql_fetch_array(mysql_query("select Name from Cinema where ID=$cinemaID"))['Name'];
 			$movieName = mysql_fetch_array(mysql_query("select Title from Movie where ID=$movieID"))['Title'];
 		
@@ -92,9 +92,10 @@ Schedule Movie Confirmation
 			
 			else
 			{
+				$theaterCapacity = mysql_fetch_array(mysql_query("select Capacity from Theater where ID=$theaterID;"))['Capacity'];
 				$insertMovieShowing = "insert into 
 													MovieShowing (CinemaID, TheaterID, MovieID, ShowDate, ShowTime, SeatsAvailable)
-													values ($cinemaID, $theaterID, $movieID, '$date', '$time', '0')"; 
+													values ($cinemaID, $theaterID, $movieID, '$date', '$time', '$theaterCapacity')"; 
 													
 				mysql_query($insertMovieShowing) or die(mysql_error());
 				
