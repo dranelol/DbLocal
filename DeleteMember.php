@@ -82,7 +82,7 @@ Delete a Member
 			if ($membershipRow = mysql_fetch_array($primaryMemberResult))
 			{
 				$acctNum = $membershipRow['AcctNum'];
-				echo "Member $memberID is the primary membership holder. Membership $acctNum has been successfully removed.<br>";
+				//echo "Member $memberID is the primary membership holder. Membership $acctNum has been successfully removed.<br>";
 			
 				$deleteMembershipQuery = "delete from Membership where AcctNum=$acctNum;";
 				if(mysql_query($deleteMembershipQuery) or die(mysql_error()))
