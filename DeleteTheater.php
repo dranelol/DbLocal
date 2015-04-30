@@ -8,8 +8,8 @@
  *| The following code is the work of the author named above.
  *|-----------------------------------------------------------------------
  *| This script generates a webpage with the appropriate fields 
- *| displayed to allow an admin to delete a movie from the Movie
- *| table in the database.
+ *| displayed to allow an admin to delete a theater from the 
+ *| Theater table in the database.
  *|-----------------------------------------------------------------------*/
  
 	include "login.php";
@@ -28,12 +28,12 @@
 <html>
 <head>
 <title> 
-Delete a Movie
+Delete a Theater
 </title>
 </head>
 
 <h3>
-Delete a Movie
+Delete a Theater
 </h3>
 <body>
 
@@ -43,9 +43,10 @@ Delete a Movie
 	
 	// restrict access only to certain userTypes
 	
+	
 	if($sessionUser != "admin")
 	{
-		echo 'You do not have permission to view this page.';
+		echo 'Not logged in as an admin!';
 		echo '<br><br>';
 		echo '<a href ="LoginPage.php">Go Log In</a>';
 		
@@ -70,48 +71,55 @@ Delete a Movie
 
 <?php
 
-	if(isset($_POST['movieToDelete']))
+	if(isset($_POST['theaterToDelete']))
 	{
-		$movieID = $_POST['movieToDelete'];
+		$theaterID = $_POST['theaterToDelete'];
 				
-		$deleteMovieQuery = "delete from Movie where ID=$movieID;";								
-		if(mysql_query($deleteMovieQuery) or die(mysql_error()))
+		$deleteTheaterQuery = "delete from Theater where ID=$theaterID;";						
+		if(mysql_query($deleteTheaterQuery) or die(mysql_error()))
 		{
-			echo "Movie successfully deleted!<br>";
+			echo "Theater $theaterID successfully deleted!";
 		}
 		else
 		{
-			echo "<br>Could not delete movie.";
-			echo '<br><a href ="DeleteMovie.php">Go to Delete Movie</a>';			
+			echo "Theater could not be deleted.";
+			echo '<br><a href ="DeleteTheater.php">Go Back</a>';				
 		}
+		
 	}
+	
 	else	
 	{
-		$movieQueryResult = mysql_query("select * from Movie;") or die(mysql_error());	
+		$theatersExistResult = mysql_query("select * from Theater order by CinemaID,TheaterNumber;") or die(mysql_error());	
 
-		if(mysql_num_rows($movieQueryResult))
+		if(mysql_num_rows($theatersExistResult))
 		{
-			echo "<form action='DeleteMovie.php' method='post'>";
-			echo "Delete Movie: ";
-			echo "<select name='movieToDelete'>";
-				
-			while($movieRow = mysql_fetch_array($movieQueryResult))
+			echo "<form action='DeleteTheater.php' method='post'>";
+			echo "Delete Theater: ";
+			echo "<select name='theaterToDelete'>";
+			
+			while($theaterRow = mysql_fetch_array($theatersExistResult))
 			{
-				$movieID = $movieRow['ID'];
-				$movieTitle = $movieRow['Title'];
-				
-				echo "<option value='$movieID'>($movieID) $movieTitle</option>";
+					$theaterID = $theaterRow['ID'];
+					$cinemaID = $theaterRow['CinemaID'];
+					$theaterNumber = $theaterRow['TheaterNumber'];
+					
+					$cinemaQuery = mysql_fetch_array(mysql_query("Select Name from Cinema where ID=$cinemaID;"));
+					$cinemaName = $cinemaQuery['Name'];
+					
+					
+					echo "<option value='$theaterID'>($cinemaName) $theaterNumber</option>";
 			}
 			
 			echo "</select>";
 			echo "<br><br>";
-			echo "<input type='submit' value='Delete Movie'>";
-			echo "</form>";		
+			echo "<input type='submit' value='Delete Theater'>";
+			echo "</form>";
 		}
 		
 		else
 		{
-			echo "No existing movies.<br>";
+			echo "No existing theaters.<br>";
 		}
 	}
 	

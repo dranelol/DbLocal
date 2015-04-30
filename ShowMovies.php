@@ -3,7 +3,7 @@
 // Last Edited: 04/28/2015
 // I promise this is my code.
 // Description:
-// Add a cinema to the database
+// Show all cinemas
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -20,12 +20,12 @@
 <html>
 <head>
 <title> 
-Add a Cinema
+View Movies
 </title>
 </head>
 
 <h3>
-Add a Cinema
+View Movies
 </h3>
 <body>
 
@@ -62,38 +62,42 @@ Add a Cinema
 <br>
 
 <?php
+	
+	$movieQuery = mysql_query("select * from Movie;") or die(mysql_error());	
 
-	if(isset($_POST['name']) && isset($_POST['address']) && isset($_POST['phoneNumber']))
+	if(mysql_num_rows($movieQuery))
 	{
+		echo "<table border = \'1\' cellpadding = \'10\'>";
+		echo "<tr> 
+				  <th>ID</th> 
+				  <th>Title</th> 
+				  <th>Stars</th>
+				  <th>Duration (minutes)</th>
+				  <th>Rating</th>
+				  <th>Description</th>
+				  </tr>";
 		
-		$name = $_POST['name'];
-		$address = $_POST['address'];
-		$phoneNumber = $_POST['phoneNumber'];
+		while($movieRow = mysql_fetch_array($movieQuery))
+		{
+				echo "<tr>
+				  <td>" . $movieRow['ID'] . "</td> 
+				  <td>" . $movieRow['Title'] . "</td>
+				  <td>" . $movieRow['Stars'] . "</td>
+				  <td>" . $movieRow['RunningTimeMinutes'] . "</td>
+				  <td>" . $movieRow['Rating'] . "</td>
+				  <td>" . $movieRow['Description'] . "</td>
+						 
+				</tr>";	
+		}
 		
-		$addCinemaQuery = "insert into Cinema (Name, Address, PhoneNumber)
-										values ('$name', '$address', '$phoneNumber')";
-		$addCinemaResult = mysql_query($addCinemaQuery) or die(mysql_error());
-		
-		echo "Cinema successfully added!";
-		
+			echo "</table><br>";
 	}
 	
 	else
 	{
-		
-?>
-
-<form action='AddCinema.php' method = 'post'>
-  Name: <input type="text" name="name" placeholder="Grand 16" required><br>
-  Address: <input type="text" name="address" placeholder="123 North Easy Street" required><br>
-  Phone Number: <input type="tel" name="phoneNumber" placeholder="123-456-7890" required><br>
-  <br><input type="submit" value="Add Cinema">
-</form>
-
-<?php
-
+		echo "No movies exist.<br><br>";
 	}
-	
+
 	echo "<form action ='index.php'>";
 	echo "<input type ='submit' value = 'Go back to index' >";  
 	echo "</form>";

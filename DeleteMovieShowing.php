@@ -1,5 +1,17 @@
 <?php
 
+/*|-------------------------------------------------------------------------
+ *| CMPS 460 Spring 2015 
+ *| Ryan Adair
+ *| 4/28/15
+ *|
+ *| The following code is the work of the author named above.
+ *|-----------------------------------------------------------------------
+ *| This script generates a webpage with the appropriate fields 
+ *| displayed to allow an admin to delete a movie showing from 
+ *| the MovieShowing table in the database. 
+ *|-----------------------------------------------------------------------*/
+
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -21,7 +33,7 @@ Delete a Movie Showing
 </head>
 
 <h3>
-Delete a MovieShowing
+Delete a Movie Showing
 </h3>
 <body>
 

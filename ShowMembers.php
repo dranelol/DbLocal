@@ -3,7 +3,7 @@
 // Last Edited: 04/28/2015
 // I promise this is my code.
 // Description:
-// Add a cinema to the database
+// Show all cinemas
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
@@ -20,12 +20,12 @@
 <html>
 <head>
 <title> 
-Add a Cinema
+View Members
 </title>
 </head>
 
 <h3>
-Add a Cinema
+View Members
 </h3>
 <body>
 
@@ -62,38 +62,43 @@ Add a Cinema
 <br>
 
 <?php
+	
+	$memberQuery = mysql_query("select * from Member order by MemberAcctNum, MemberAcctOrder;") or die(mysql_error());	
 
-	if(isset($_POST['name']) && isset($_POST['address']) && isset($_POST['phoneNumber']))
+	if(mysql_num_rows($memberQuery))
 	{
+		echo "<table border = \'1\' cellpadding = \'10\'>";
+		echo "<tr> 
+				  <th>Account Number</th> 
+				  <th>ID</th> 
+				  <th>Name</th> 
+				  <th>Address</th>
+				  <th>Email</th>
+				  <th>Phone Number</th>
+				  <th>Age</th>
+				  </tr>";
 		
-		$name = $_POST['name'];
-		$address = $_POST['address'];
-		$phoneNumber = $_POST['phoneNumber'];
+		while($memberRow = mysql_fetch_array($memberQuery))
+		{
+				echo "<tr>
+					<td>" . $memberRow['MemberAcctNum'] . "</td>
+					<td>" . $memberRow['ID'] . "</td>
+					<td>" . $memberRow['Name'] . "</td>
+					<td>" . $memberRow['Address'] . "</td>
+					<td>" . $memberRow['Email'] . "</td>
+					<td>" . $memberRow['PhoneNumber'] . "</td>
+					<td>" . $memberRow['Age'] . "</td>
+				</tr>";	
+		}
 		
-		$addCinemaQuery = "insert into Cinema (Name, Address, PhoneNumber)
-										values ('$name', '$address', '$phoneNumber')";
-		$addCinemaResult = mysql_query($addCinemaQuery) or die(mysql_error());
-		
-		echo "Cinema successfully added!";
-		
+			echo "</table><br>";
 	}
 	
 	else
 	{
-		
-?>
-
-<form action='AddCinema.php' method = 'post'>
-  Name: <input type="text" name="name" placeholder="Grand 16" required><br>
-  Address: <input type="text" name="address" placeholder="123 North Easy Street" required><br>
-  Phone Number: <input type="tel" name="phoneNumber" placeholder="123-456-7890" required><br>
-  <br><input type="submit" value="Add Cinema">
-</form>
-
-<?php
-
+		echo "No members exist.<br><br>";
 	}
-	
+
 	echo "<form action ='index.php'>";
 	echo "<input type ='submit' value = 'Go back to index' >";  
 	echo "</form>";

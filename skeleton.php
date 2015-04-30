@@ -1,5 +1,13 @@
 <?php
-
+	
+/*|-------------------------------------------------------------------------
+ *| CMPS 460 Spring 2015 
+ *| { NAME HERE }
+ *| 4/30/15
+ *|
+ *| The following code is the work of the author named above.
+ *|-----------------------------------------------------------------------*/
+	
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)

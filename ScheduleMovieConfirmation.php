@@ -1,5 +1,17 @@
 <?php
 
+/*|-------------------------------------------------------------------------
+ *| CMPS 460 Spring 2015 
+ *| Ryan Adair
+ *| 4/28/15
+ *|
+ *| The following code is the work of the author named above.
+ *|-----------------------------------------------------------------------
+ *| This script generates a webpage that indicates the result
+ *| of an attempt to add a new movie showing to the database
+ *| by an employee or admin. 
+ *|-----------------------------------------------------------------------*/
+ 
 	include "login.php";
 
 	if(isset($_SESSION["userType"]) == false)
