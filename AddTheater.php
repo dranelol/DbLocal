@@ -70,12 +70,14 @@ Add a Theater
 
 <?php
 
-	if(isset($_POST['cinema']) && isset($_POST['theaterNumber']) && isset($_POST['theaterCapacity']))
+	if(isset($_POST['cinema']) && isset($_POST['theaterNumber']) && isset($_POST['theaterRows']) && isset($_POST['theaterCols']))
 	{
 		
 		$cinemaID = $_POST['cinema'];
 		$theaterNumber = $_POST['theaterNumber'];
-		$theaterCapacity = $_POST['theaterCapacity'];
+		$theaterRows = $_POST['theaterRows'];
+		$theaterCols = $_POST['theaterCols'];
+		$theaterCapacity = $theaterRows * $theaterCols;
 		
 		$theaterExistsResult = mysql_query("select * from Theater where CinemaID=$cinemaID and TheaterNumber=$theaterNumber;") or die(mysql_error());
 		
@@ -85,9 +87,10 @@ Add a Theater
 		}
 		
 		else
-		{		
-			$addTheaterQuery = "insert into Theater (CinemaID, TheaterNumber, Capacity)
-											values ('$cinemaID', '$theaterNumber', '$theaterCapacity')";
+		{
+			
+			$addTheaterQuery = "insert into Theater (CinemaID, TheaterNumber, SeatingRows, SeatingColumns, Capacity)
+											values ('$cinemaID', '$theaterNumber', '$theaterRows', '$theaterCols', '$theaterCapacity')";
 											
 											
 			$addTheaterResult = mysql_query($addTheaterQuery) or die(mysql_error());
@@ -116,7 +119,8 @@ Add a Theater
 			echo "<br>";
 			
 			echo "Theater Number: <input type='text' name='theaterNumber' placeholder='1' required><br>";
-			echo "Seating Capacity: <input type='text' name='theaterCapacity' placeholder='50' required><br>";	
+			echo "Number of Rows: <input type='number' min='1' step='1' name='theaterRows' placeholder='12' required><br>";
+			echo "Number of Columns: <input type='number' min='1' step='1' name='theaterCols' placeholder='12' required><br>";	
 			
 			echo "<br><input type='submit' value='Add Theater'>";
 			echo "</form>";
