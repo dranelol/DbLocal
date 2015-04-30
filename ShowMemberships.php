@@ -78,8 +78,8 @@ View Memberships
 		
 		while($memberRow = mysql_fetch_array($memberQuery))
 		{
-				$acctNumber = $memberRow['AcctNum'];
-				$memberName = mysql_fetch_array(mysql_query("select Name from Member where ID=$acctNumber;"))['Name'];
+				$primaryMemberAcctNum = $memberRow['PrimaryMemberID'];
+				$memberName = mysql_fetch_array(mysql_query("select Name from Member where ID=$primaryMemberAcctNum;"))['Name'];
 				
 				echo "<tr>
 					<td>" . $memberRow['AcctNum'] . "</td>
